@@ -16,50 +16,44 @@
 
 package uk.gov.hmrc.test.ui.cucumber.stepdefs
 
-import uk.gov.hmrc.test.ui.pages.CheckYourVATHomePage
-import uk.gov.hmrc.test.ui.pages.CheckYourVATHomePage.provideVATPeriod
-import uk.gov.hmrc.test.ui.pages.CheckYourVATResult.{result, useSetVATFlatRate, useUniqueVATFlatRate}
+import uk.gov.hmrc.test.ui.messages.Helper._
+import uk.gov.hmrc.test.ui.pages.Page
+import uk.gov.hmrc.test.ui.utils.RichString
 
 class ExampleStepDef extends BaseStepDef {
 
-  Given("I am on the Check your VAT flat rate service") { () =>
-    CheckYourVATHomePage.loadPage
+  When("I redirect to manage my transit movements") { () =>
+    Page.navigateTo(getMessage("local_manage_transit_movements"))
   }
 
-  When("I submit my VAT for goods under £1000 for the year") { () =>
-    provideVATPeriod("Annually")
-      .provideTurnoverAmount("1000")
-      .provideCostOfGoodsAmount("999")
-      .submitVATInformation
+  And("""^I click the (.+) link$""") { (linkText: String) =>
+    Page.clickLinkByText(linkText)
   }
 
-  When("I submit my VAT information for goods over £1000 for the year") { () =>
-    provideVATPeriod("Annually")
-      .provideTurnoverAmount("1000")
-      .provideCostOfGoodsAmount("1000")
-      .submitVATInformation
+  Then("""^I should be on the (.+) page$""") { (pageHeading: String) =>
+    Page.pageHeading shouldBe pageHeading
   }
 
-  When("I submit my VAT information for goods under £250 for the quarter") { () =>
-    provideVATPeriod("Quarterly")
-      .provideTurnoverAmount("1000")
-      .provideCostOfGoodsAmount("249")
-      .submitVATInformation
+  When("""^I submit (.+) on the (.+) page$""") { (answer: String, page: String) =>
+    val id = page.toCamelCase()
+    Page.fillInputById(id, answer)
+    Page.continue()
   }
 
-  When("I submit my VAT information for goods for £250 for the quarter") { () =>
-    provideVATPeriod("Quarterly")
-      .provideTurnoverAmount("1000")
-      .provideCostOfGoodsAmount("250")
-      .submitVATInformation
+  And("""^I click the (Continue|Continue waiting) button$""") { (_: String) =>
+    Page.continue()
   }
 
-  Then("I will be asked to use the 16.5% VAT flat rate") { () =>
-    result should be(useSetVATFlatRate)
+  When("""^I complete the balance request for EORI number (.+) and GRN (.+)$""") { (eoriNumber: String, grn: String) =>
+    Page.completeBalanceRequest(eoriNumber, grn)
   }
 
-  Then("I will be asked to use the VAT flat rate") { () =>
-    result should be(useUniqueVATFlatRate)
+  Then("""^I should see a confirmation of my balance$""") { () =>
+    Page.currentUrl should include("balance-confirmation")
+  }
+
+  And("""^I sign out$""") { () =>
+    Page.signOut()
   }
 
 }

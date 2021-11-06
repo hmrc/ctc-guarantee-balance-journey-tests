@@ -1,25 +1,22 @@
 @Example
 
-Feature: Example Feature file using Cucumber
+Feature: Guarantee balance
 
-  @ZAP
-  Scenario: User is a limited cost business that pays annually and should use the 16.5% flat rate
-    Given I am on the Check your VAT flat rate service
-    When I submit my VAT for goods under £1000 for the year
-    Then I will be asked to use the 16.5% VAT flat rate
+  Scenario: Balance request pending then completed
+    Given I get a bearer token
+    When I redirect to manage my transit movements
+    And I click the Check your guarantee balance link
+    Then I should be on the What is your EORI number? page
 
-  Scenario: User is not a limited cost business that pays annually and should use the VAT flat rate
-    Given I am on the Check your VAT flat rate service
-    When I submit my VAT information for goods over £1000 for the year
-    Then I will be asked to use the VAT flat rate
+    When I submit GB1234 on the EORI number page
+    And I submit 1234 on the guarantee reference number page
+    And I submit 0000 on the access code page
+    Then I should be on the Check your answers page
 
-  Scenario: User is a limited cost business that pays quarterly and should use the 16.5% flat rate
-    Given I am on the Check your VAT flat rate service
-    When I submit my VAT information for goods under £250 for the quarter
-    Then I will be asked to use the 16.5% VAT flat rate
+    When I click the Continue button
+    Then I should be on the We are trying to get your guarantee balance page
 
-  Scenario: User is not a limited cost business that pays quarterly and should use the VAT flat rate
-    Given I am on the Check your VAT flat rate service
-    When I submit my VAT information for goods for £250 for the quarter
-    Then I will be asked to use the VAT flat rate
-
+    When I complete the balance request for EORI number GB1234 and GRN 1234
+    And I click the Continue waiting button
+    Then I should see a confirmation of my balance
+    And I sign out
