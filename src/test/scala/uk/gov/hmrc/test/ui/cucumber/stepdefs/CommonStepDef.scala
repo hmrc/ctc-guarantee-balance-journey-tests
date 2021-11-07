@@ -20,7 +20,7 @@ import uk.gov.hmrc.test.ui.messages.Helper._
 import uk.gov.hmrc.test.ui.pages.Page
 import uk.gov.hmrc.test.ui.utils.RichString
 
-class ExampleStepDef extends BaseStepDef {
+class CommonStepDef extends BaseStepDef {
 
   When("I redirect to manage my transit movements") { () =>
     Page.navigateTo(getMessage("local_manage_transit_movements"))
@@ -44,16 +44,8 @@ class ExampleStepDef extends BaseStepDef {
     Page.continue()
   }
 
-  When("""^I complete the balance request for EORI number (.+) and GRN (.+)$""") { (eoriNumber: String, grn: String) =>
-    Page.completeBalanceRequest(eoriNumber, grn)
-  }
-
   Then("""^I should see a confirmation of my balance$""") { () =>
     Page.currentUrl should include("balance-confirmation")
-  }
-
-  And("""^I sign out$""") { () =>
-    Page.signOut()
   }
 
 }

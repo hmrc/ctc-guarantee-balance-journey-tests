@@ -1,6 +1,6 @@
 @Example
 
-Feature: Guarantee balance
+Feature: Pending guarantee balance
 
   Scenario: Balance request pending then completed
     Given I get a bearer token
@@ -16,7 +16,11 @@ Feature: Guarantee balance
     When I click the Continue button
     Then I should be on the We are trying to get your guarantee balance page
 
+    And I click the Continue waiting button
+    Then I should be on the We are trying to get your guarantee balance page
+
     When I complete the balance request for EORI number GB1234 and GRN 1234
     And I click the Continue waiting button
     Then I should see a confirmation of my balance
+
     And I sign out

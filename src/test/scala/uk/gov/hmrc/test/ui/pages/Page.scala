@@ -17,13 +17,8 @@
 package uk.gov.hmrc.test.ui.pages
 
 import org.openqa.selenium.{By, WebElement}
-import play.api.libs.json.Json
-import uk.gov.hmrc.test.ui.client.HttpClient
 import uk.gov.hmrc.test.ui.driver.BrowserDriver
-import uk.gov.hmrc.test.ui.messages.Helper.getMessage
-import uk.gov.hmrc.test.ui.utils.World
 
-import java.time.LocalDateTime
 import scala.collection.convert.ImplicitConversions._
 
 object Page extends BrowserDriver {
@@ -34,28 +29,6 @@ object Page extends BrowserDriver {
     val pattern                  = "(.+)/ctc-guarantee-balance/(.+)/(.+)".r
     val pattern(_, balanceId, _) = currentUrl
     balanceId
-  }
-
-  def completeBalanceRequest(eoriNumber: String, grn: String): Unit = {
-    val json = Json.parse(s"""
-        |{
-        |  "taxIdentifier": "$eoriNumber",
-        |  "guaranteeReference": "$grn",
-        |  "completedAt": "${LocalDateTime.now()}",
-        |  "response": {
-        |    "status": "SUCCESS",
-        |    "balance": 1000,
-        |    "currency": "GBP"
-        |  }
-        |}
-        |""".stripMargin)
-
-    val headers = Seq(
-      ("Accept", "application/vnd.hmrc.1.0+json"),
-      ("Authorization", World.bearerToken)
-    )
-
-    HttpClient.post(s"${getMessage("test_support_local_uri")}/balances/$balanceId", json, headers)
   }
 
   private def click(by: By): Unit = findElementBy(by).click()

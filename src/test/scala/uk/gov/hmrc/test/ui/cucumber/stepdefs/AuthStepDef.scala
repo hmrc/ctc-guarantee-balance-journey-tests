@@ -36,4 +36,9 @@ class AuthStepDef extends BaseStepDef {
 
     World.bearerToken = Page.findElementBy(cssSelector(getPath("token_locator"))).getText
   }
+
+  And("""^I sign out$""") { () =>
+    Page.signOut()
+  }
+
 }

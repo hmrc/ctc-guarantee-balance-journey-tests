@@ -14,20 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.pages
+package uk.gov.hmrc.test.ui.cucumber.stepdefs
 
-import org.openqa.selenium.By
+import uk.gov.hmrc.test.ui.utils.ApiHelper
 
-object CheckYourVATResult extends BasePage {
+class ApiStepDef extends BaseStepDef {
 
-  val checkYourVatResult   = "Your VAT calculation"
-  val resultOutcome        = "resultOutcome"
-  val useSetVATFlatRate    = "Use the 16.5% VAT flat rate"
-  val useUniqueVATFlatRate = "Use the VAT flat rate for your business type"
-
-  def result: String = {
-    onPage(checkYourVatResult)
-    driver.findElement(By.id(resultOutcome)).getText
+  When("""^I complete the balance request for EORI number (.+) and GRN (.+)$""") { (eoriNumber: String, grn: String) =>
+    ApiHelper.completeBalanceRequest(eoriNumber, grn)
   }
 
 }
