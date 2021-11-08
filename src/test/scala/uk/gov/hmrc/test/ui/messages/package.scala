@@ -14,20 +14,24 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.pages
+package uk.gov.hmrc.test.ui
 
-import org.openqa.selenium.By
+import java.io.FileInputStream
+import java.util.Properties
 
-object CheckYourVATResult extends BasePage {
+package object messages {
 
-  val checkYourVatResult   = "Your VAT calculation"
-  val resultOutcome        = "resultOutcome"
-  val useSetVATFlatRate    = "Use the 16.5% VAT flat rate"
-  val useUniqueVATFlatRate = "Use the VAT flat rate for your business type"
+  def getMessage(key: String): String =
+    getPropertyInFile("messages.properties", key)
 
-  def result: String = {
-    onPage(checkYourVatResult)
-    driver.findElement(By.id(resultOutcome)).getText
+  def getPath(key: String): String =
+    getPropertyInFile("page_paths.properties", key)
+
+  private def getPropertyInFile(file: String, property: String): String = {
+    val messageStream = new FileInputStream(s"./src/test/scala/uk/gov/hmrc/test/ui/messages/$file")
+    val properties    = new Properties()
+    properties.load(messageStream)
+    properties.getProperty(property, property)
   }
 
 }

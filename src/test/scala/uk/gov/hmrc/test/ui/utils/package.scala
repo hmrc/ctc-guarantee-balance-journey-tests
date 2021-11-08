@@ -14,24 +14,16 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.pages
+package uk.gov.hmrc.test.ui
 
-import org.openqa.selenium.By
+package object utils {
 
-object CostOfGoods extends BasePage {
+  implicit class RichString(string: String) {
 
-  val costOfGoods      = "Enter your cost of goods"
-  val costOfGoodsInput = "costOfGoods"
-
-  def provideCostOfGoodsAmount(amount: String): this.type = {
-    onPage(costOfGoods)
-    driver.findElement(By.id(costOfGoodsInput)).sendKeys(amount)
-    this
+    def toCamelCase(separator: String = " "): String = {
+      val split = string.trim.split(separator)
+      val tail  = split.tail.map(x => x.head.toUpper + x.tail)
+      split.head.toLowerCase + tail.mkString
+    }
   }
-
-  def submitVATInformation: CheckYourVATResult.type = {
-    submitPage()
-    CheckYourVATResult
-  }
-
 }

@@ -14,20 +14,22 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.pages
+package uk.gov.hmrc.test.ui.cucumber.stepdefs
 
-import org.openqa.selenium.By
+import uk.gov.hmrc.test.ui.utils.{ApiHelper, MongoHelper}
 
-object Turnover extends BasePage {
+class AsyncStepDef extends BaseStepDef {
 
-  val turnover      = "Enter your turnover"
-  val turnoverInput = "turnover"
+  When("""^The balance request completes for EORI number (.+) and GRN (.+)$""") { (eoriNumber: String, grn: String) =>
+    ApiHelper.completeBalanceRequest(eoriNumber, grn)
+  }
 
-  def provideTurnoverAmount(amount: String): CostOfGoods.type = {
-    onPage(turnover)
-    driver.findElement(By.id(turnoverInput)).sendKeys(amount)
-    submitPage()
-    CostOfGoods
+  When("""^The details do not match for EORI number (.+) and GRN (.+)$""") { (eoriNumber: String, grn: String) =>
+    ApiHelper.detailsDoNotMatch(eoriNumber, grn)
+  }
+
+  When("""^The balance request is removed$""") { () =>
+    MongoHelper.deleteBalanceRequest()
   }
 
 }
