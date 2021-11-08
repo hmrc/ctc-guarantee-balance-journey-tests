@@ -22,11 +22,9 @@ import akka.util.ByteString
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.ahc.StandaloneAhcWSClient
 import play.api.libs.ws.{BodyWritable, InMemoryBody, StandaloneWSResponse}
+import uk.gov.hmrc.test.ui.utils.AsynchronousHelper
 
-import scala.concurrent.duration._
-import scala.concurrent.{Await, Future}
-
-object HttpClient {
+object HttpClient extends AsynchronousHelper {
 
   private implicit val bodyWrites: BodyWritable[JsValue] =
     BodyWritable(a => InMemoryBody(ByteString.fromArrayUnsafe(Json.toBytes(a))), "application/json")
@@ -48,8 +46,5 @@ object HttpClient {
 
   def delete(url: String, headers: Seq[(String, String)] = Nil): StandaloneWSResponse =
     awaitResult(asyncClient.url(url).withHttpHeaders(headers: _*).delete())
-
-  private def awaitResult(request: => Future[StandaloneWSResponse]): StandaloneWSResponse =
-    Await.result(request, Duration.Inf)
 
 }

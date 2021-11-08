@@ -13,7 +13,8 @@ object Dependencies {
     "com.novocode"         % "junit-interface"        % "0.11",
     "com.typesafe"         % "config"                 % "1.3.2",
     "com.typesafe.play"   %% "play-json"              % "2.9.2",
-    "com.typesafe.play"   %% "play-ahc-ws-standalone" % "2.1.3"
+    "com.typesafe.play"   %% "play-ahc-ws-standalone" % "2.1.3",
+    "org.mongodb.scala"   %% "mongo-scala-driver"     % "4.3.2"
   ).map(_ % Test)
 
 }

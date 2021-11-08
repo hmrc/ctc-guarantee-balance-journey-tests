@@ -16,9 +16,9 @@
 
 package uk.gov.hmrc.test.ui.cucumber.stepdefs
 
-import uk.gov.hmrc.test.ui.utils.ApiHelper
+import uk.gov.hmrc.test.ui.utils.{ApiHelper, MongoHelper}
 
-class ApiStepDef extends BaseStepDef {
+class AsyncStepDef extends BaseStepDef {
 
   When("""^The balance request completes for EORI number (.+) and GRN (.+)$""") { (eoriNumber: String, grn: String) =>
     ApiHelper.completeBalanceRequest(eoriNumber, grn)
@@ -26,6 +26,10 @@ class ApiStepDef extends BaseStepDef {
 
   When("""^The details do not match for EORI number (.+) and GRN (.+)$""") { (eoriNumber: String, grn: String) =>
     ApiHelper.detailsDoNotMatch(eoriNumber, grn)
+  }
+
+  When("""^The balance request is removed$""") { () =>
+    MongoHelper.deleteBalanceRequest()
   }
 
 }
