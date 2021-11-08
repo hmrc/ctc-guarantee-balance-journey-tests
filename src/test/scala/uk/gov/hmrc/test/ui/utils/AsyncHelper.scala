@@ -19,7 +19,7 @@ package uk.gov.hmrc.test.ui.utils
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
 
-trait AsynchronousHelper {
+trait AsyncHelper {
 
   def awaitResult[T](request: => Future[T]): T =
     Await.result(request, Duration.Inf)

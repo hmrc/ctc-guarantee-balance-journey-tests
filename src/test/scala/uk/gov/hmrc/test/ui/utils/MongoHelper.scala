@@ -26,7 +26,7 @@ import java.util.UUID
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-object MongoHelper extends AsynchronousHelper {
+object MongoHelper extends AsyncHelper {
 
   def deleteBalanceRequest(): Unit =
     amendCollection(_.deleteOne(Filters.eq("_id", UUID.fromString(balanceId))))

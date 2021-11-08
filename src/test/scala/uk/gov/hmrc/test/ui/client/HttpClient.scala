@@ -22,9 +22,9 @@ import akka.util.ByteString
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.ahc.StandaloneAhcWSClient
 import play.api.libs.ws.{BodyWritable, InMemoryBody, StandaloneWSResponse}
-import uk.gov.hmrc.test.ui.utils.AsynchronousHelper
+import uk.gov.hmrc.test.ui.utils.AsyncHelper
 
-object HttpClient extends AsynchronousHelper {
+object HttpClient extends AsyncHelper {
 
   private implicit val bodyWrites: BodyWritable[JsValue] =
     BodyWritable(a => InMemoryBody(ByteString.fromArrayUnsafe(Json.toBytes(a))), "application/json")
