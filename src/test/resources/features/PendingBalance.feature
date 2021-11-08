@@ -1,5 +1,5 @@
 # TODO - Change runner tag
-#@Example
+@Example
 
 Feature: Pending guarantee balance
 
@@ -25,7 +25,7 @@ Feature: Pending guarantee balance
     Then I should see a confirmation of my balance
 
     And I sign out
-  @Example
+
   Scenario: Balance request pending then details do not match
     Given I get a bearer token
     When I redirect to manage my transit movements
