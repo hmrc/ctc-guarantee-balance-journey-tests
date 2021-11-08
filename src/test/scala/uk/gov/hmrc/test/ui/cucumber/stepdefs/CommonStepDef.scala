@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.test.ui.cucumber.stepdefs
 
-import uk.gov.hmrc.test.ui.messages.Helper._
+import uk.gov.hmrc.test.ui.messages._
 import uk.gov.hmrc.test.ui.pages.Page
 import uk.gov.hmrc.test.ui.utils.RichString
 

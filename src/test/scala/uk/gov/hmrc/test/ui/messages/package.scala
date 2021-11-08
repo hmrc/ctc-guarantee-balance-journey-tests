@@ -14,26 +14,25 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.messages
+package uk.gov.hmrc.test.ui
 
 import java.io.FileInputStream
 import java.util.Properties
 
-object Helper {
+package object messages {
 
   def getMessage(key: String): String = messageResource.getProperty(key, key)
 
   def getPath(key: String): String = pathResource.getProperty(key, key)
 
-  private val messageResource: Properties = {
-    val messageStream = new FileInputStream("./src/test/scala/uk/gov/hmrc/test/ui/messages/messages.properties")
-    val properties    = new Properties()
-    properties.load(messageStream)
-    properties
-  }
+  private val messageResource: Properties =
+    getPropertiesForFile("messages.properties")
 
-  private val pathResource: Properties = {
-    val messageStream = new FileInputStream("./src/test/scala/uk/gov/hmrc/test/ui/messages/page_paths.properties")
+  private val pathResource: Properties =
+    getPropertiesForFile("page_paths.properties")
+
+  private def getPropertiesForFile(file: String): Properties = {
+    val messageStream = new FileInputStream(s"./src/test/scala/uk/gov/hmrc/test/ui/messages/$file")
     val properties    = new Properties()
     properties.load(messageStream)
     properties
