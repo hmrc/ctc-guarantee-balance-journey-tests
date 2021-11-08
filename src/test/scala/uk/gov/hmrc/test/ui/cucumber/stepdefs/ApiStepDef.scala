@@ -20,8 +20,12 @@ import uk.gov.hmrc.test.ui.utils.ApiHelper
 
 class ApiStepDef extends BaseStepDef {
 
-  When("""^I complete the balance request for EORI number (.+) and GRN (.+)$""") { (eoriNumber: String, grn: String) =>
+  When("""^The balance request completes for EORI number (.+) and GRN (.+)$""") { (eoriNumber: String, grn: String) =>
     ApiHelper.completeBalanceRequest(eoriNumber, grn)
+  }
+
+  When("""^The details do not match for EORI number (.+) and GRN (.+)$""") { (eoriNumber: String, grn: String) =>
+    ApiHelper.detailsDoNotMatch(eoriNumber, grn)
   }
 
 }
