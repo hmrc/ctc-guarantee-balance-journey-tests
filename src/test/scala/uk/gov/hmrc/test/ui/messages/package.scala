@@ -21,21 +21,17 @@ import java.util.Properties
 
 package object messages {
 
-  def getMessage(key: String): String = messageResource.getProperty(key, key)
+  def getMessage(key: String): String =
+    getPropertyInFile("messages.properties", key)
 
-  def getPath(key: String): String = pathResource.getProperty(key, key)
+  def getPath(key: String): String =
+    getPropertyInFile("page_paths.properties", key)
 
-  private val messageResource: Properties =
-    getPropertiesForFile("messages.properties")
-
-  private val pathResource: Properties =
-    getPropertiesForFile("page_paths.properties")
-
-  private def getPropertiesForFile(file: String): Properties = {
+  private def getPropertyInFile(file: String, property: String): String = {
     val messageStream = new FileInputStream(s"./src/test/scala/uk/gov/hmrc/test/ui/messages/$file")
     val properties    = new Properties()
     properties.load(messageStream)
-    properties
+    properties.getProperty(property, property)
   }
 
 }
