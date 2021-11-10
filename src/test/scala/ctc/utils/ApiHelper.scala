@@ -69,5 +69,4 @@ object ApiHelper {
 
     HttpClient.post(url, json, headers)
   }
-
 }
