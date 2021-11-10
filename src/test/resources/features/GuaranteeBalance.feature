@@ -45,7 +45,7 @@ Feature: Guarantee balance rate limitation check
 
   Scenario: 3. Verify that user is able to use the same GRN but different GG login
     Given I login with identifier value 123457890
-    And I click the Check your guarantee balance link
+    When I click the Check your guarantee balance link
     And I submit GB04321 on the EORI number page
     And I submit 1234 on the guarantee reference number page
     And I submit 1111 on the access code page
