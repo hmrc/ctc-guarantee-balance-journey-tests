@@ -14,24 +14,16 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui
+package ctc.driver
 
-import java.io.FileInputStream
-import java.util.Properties
+import com.typesafe.scalalogging.LazyLogging
+import org.openqa.selenium.WebDriver
+import uk.gov.hmrc.webdriver.SingletonDriver
 
-package object messages {
+trait BrowserDriver extends LazyLogging {
+  logger.info(
+    s"Instantiating Browser: ${sys.props.getOrElse("browser", "'browser' System property not set. This is required")}"
+  )
 
-  def getMessage(key: String): String =
-    getPropertyInFile("messages.properties", key)
-
-  def getPath(key: String): String =
-    getPropertyInFile("page_paths.properties", key)
-
-  private def getPropertyInFile(file: String, property: String): String = {
-    val messageStream = new FileInputStream(s"./src/test/scala/uk/gov/hmrc/test/ui/messages/$file")
-    val properties    = new Properties()
-    properties.load(messageStream)
-    properties.getProperty(property, property)
-  }
-
+  implicit lazy val driver: WebDriver = SingletonDriver.getInstance()
 }

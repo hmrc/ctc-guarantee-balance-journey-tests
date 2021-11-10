@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.client
+package ctc.utils
 
 import akka.actor.ActorSystem
 import akka.stream.{Materializer, SystemMaterializer}
@@ -22,7 +22,6 @@ import akka.util.ByteString
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.ahc.StandaloneAhcWSClient
 import play.api.libs.ws.{BodyWritable, InMemoryBody, StandaloneWSResponse}
-import uk.gov.hmrc.test.ui.utils.AsyncHelper
 
 object HttpClient extends AsyncHelper {
 

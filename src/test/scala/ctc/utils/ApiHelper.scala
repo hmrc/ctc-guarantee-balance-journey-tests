@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.utils
+package ctc.utils
 
 import play.api.libs.json.Json
-import uk.gov.hmrc.test.ui.client.HttpClient
-import uk.gov.hmrc.test.ui.messages._
-import uk.gov.hmrc.test.ui.pages.Page.balanceId
+import ctc.pages.Page.balanceId
 
 import java.time.LocalDateTime
 
@@ -31,7 +29,7 @@ object ApiHelper {
   )
 
   def completeBalanceRequest(eoriNumber: String, grn: String): Unit = {
-    val url = s"${getMessage("test_support_local_uri")}/balances/$balanceId"
+    val url = s"${getValue("test_support_local_url")}/balances/$balanceId"
 
     val json = Json.parse(s"""
       |{
@@ -50,7 +48,7 @@ object ApiHelper {
   }
 
   def detailsDoNotMatch(eoriNumber: String, grn: String): Unit = {
-    val url = s"${getMessage("test_support_local_uri")}/balances/$balanceId"
+    val url = s"${getValue("test_support_local_url")}/balances/$balanceId"
 
     val json = Json.parse(s"""
       |{
