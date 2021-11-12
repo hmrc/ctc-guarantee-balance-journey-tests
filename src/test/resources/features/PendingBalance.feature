@@ -1,3 +1,5 @@
+## Ticket Id: CTCTRADERS-2721
+## Ticket Id: CTCTRADERS-2745
 
 ## Enter x000 as Access code to see Wait page
 ## Enter x906 as Access code to see Try Again Page
