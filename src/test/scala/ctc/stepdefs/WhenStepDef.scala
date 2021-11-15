@@ -23,7 +23,6 @@ class WhenStepDef extends BaseStepDef {
 
   When("""^I click the (.+) link$""") { (linkText: String) =>
     Page.clickLinkByText(linkText)
-    Thread.sleep(5000)
   }
 
   When("""^I submit (.+) on the (.+) page$""") { (answer: String, page: String) =>
@@ -34,5 +33,22 @@ class WhenStepDef extends BaseStepDef {
 
   When("""^I click the (Try again) button$""") { (_: String) =>
     Page.tryAgain()
+  }
+
+  When("""^I click the (Continue|Continue waiting) button$""") { (_: String) =>
+    Page.continue()
+  }
+
+  When("""^I choose to wait for (.+) seconds$""") { (seconds: Int) =>
+    val waitTime = seconds * 1000
+    Thread.sleep(waitTime)
+  }
+
+  When("""^I click the Change link for (.+)$""") { (changeText: String) =>
+    changeText.toLowerCase() match {
+      case "eori number"                => Page.changeEoriNumber()
+      case "guarantee reference number" => Page.changeGuaranteeReferenceNumber()
+      case "access code"                => Page.changeAccessCode()
+    }
   }
 }

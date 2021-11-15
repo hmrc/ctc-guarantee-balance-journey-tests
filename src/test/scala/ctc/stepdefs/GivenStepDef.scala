@@ -37,10 +37,6 @@ class GivenStepDef extends BaseStepDef {
     ApiHelper.completeBalanceRequest(eoriNumber, grn)
   }
 
-  Given("""^I click the (Continue|Continue waiting) button$""") { (_: String) =>
-    Page.continue()
-  }
-
   Given("""^The details do not match for EORI number (.+) and GRN (.+)$""") { (eoriNumber: String, grn: String) =>
     ApiHelper.detailsDoNotMatch(eoriNumber, grn)
   }
