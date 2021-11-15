@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.utils
+package ctc.utils
 
 import com.mongodb.MongoClientSettings
 import org.bson.UuidRepresentation
 import org.mongodb.scala.model.Filters
 import org.mongodb.scala.{MongoClient, MongoCollection, SingleObservable}
-import uk.gov.hmrc.test.ui.pages.Page.balanceId
+import ctc.pages.Page.balanceId
 
 import java.util.UUID
 import scala.concurrent.ExecutionContext.Implicits.global

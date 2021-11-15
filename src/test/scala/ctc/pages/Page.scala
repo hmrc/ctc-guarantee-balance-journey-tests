@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.pages
+package ctc.pages
 
+import ctc.driver.BrowserDriver
 import org.openqa.selenium.{By, WebElement}
-import uk.gov.hmrc.test.ui.driver.BrowserDriver
+import ctc.utils.getValue
 
 import scala.collection.convert.ImplicitConversions._
 
@@ -35,15 +36,16 @@ object Page extends BrowserDriver {
 
   def submit(): Unit   = click(By.cssSelector("*[type='submit']"))
   def continue(): Unit = click(By.className("govuk-button"))
-  def signOut(): Unit  = click(By.className("hmrc-sign-out-nav__link"))
+  def tryAgain(): Unit = click(By.id("submit"))
 
   def findElementBy(by: By): WebElement        = driver.findElement(by)
   def findElementsBy(by: By): List[WebElement] = driver.findElements(by).toList
 
   def navigateTo(url: String): Unit = driver.navigate().to(url)
 
-  def clickLinkByText(text: String): Unit =
-    findElementsBy(By.tagName("a")).find(_.getText == text).foreach(_.click())
+  def clearCookies(): Unit = driver.manage().deleteAllCookies()
+
+  def clickLinkByText(text: String): Unit = findElementsBy(By.tagName("a")).find(_.getText == text).foreach(_.click())
 
   def pageHeading: String = findElementBy(By.tagName("h1")).getText
 
@@ -55,4 +57,12 @@ object Page extends BrowserDriver {
 
   def fillInputById(id: String, text: String): Unit = fillInput(By.id(id), text)
 
+  def authenticate(identifierValue: String): Unit = {
+    navigateTo(getValue("local_auth_login_url"))
+    fillInput(By.cssSelector("*[name='redirectionUrl']"), getValue("local_auth_redirect_url"))
+    fillInput(By.cssSelector("*[name='enrolment[0].name']"), getValue("enrolment_key"))
+    fillInput(By.cssSelector("*[name='enrolment[0].taxIdentifier[0].name']"), getValue("identifier_name"))
+    fillInput(By.cssSelector("*[name='enrolment[0].taxIdentifier[0].value']"), identifierValue)
+    submit()
+  }
 }

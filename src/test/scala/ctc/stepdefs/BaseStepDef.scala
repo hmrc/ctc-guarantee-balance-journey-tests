@@ -14,22 +14,19 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.cucumber.stepdefs
+package ctc.stepdefs
 
-import uk.gov.hmrc.test.ui.utils.{ApiHelper, MongoHelper}
+import ctc.driver.BrowserDriver
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.concurrent.Eventually
+import io.cucumber.scala.{EN, ScalaDsl}
+import uk.gov.hmrc.webdriver.SingletonDriver
 
-class AsyncStepDef extends BaseStepDef {
+import scala.util.Try
 
-  When("""^The balance request completes for EORI number (.+) and GRN (.+)$""") { (eoriNumber: String, grn: String) =>
-    ApiHelper.completeBalanceRequest(eoriNumber, grn)
+trait BaseStepDef extends ScalaDsl with EN with BrowserDriver with Eventually with Matchers {
+
+  sys.addShutdownHook {
+    Try(SingletonDriver.closeInstance)
   }
-
-  When("""^The details do not match for EORI number (.+) and GRN (.+)$""") { (eoriNumber: String, grn: String) =>
-    ApiHelper.detailsDoNotMatch(eoriNumber, grn)
-  }
-
-  When("""^The balance request is removed$""") { () =>
-    MongoHelper.deleteBalanceRequest()
-  }
-
 }
