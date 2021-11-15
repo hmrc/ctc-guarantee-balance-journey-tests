@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.driver
+package ctc.stepdefs
 
-import com.typesafe.scalalogging.LazyLogging
-import org.openqa.selenium.WebDriver
-import uk.gov.hmrc.webdriver.SingletonDriver
+import ctc.driver.BrowserDriver
+import io.cucumber.scala.{EN, ScalaDsl, Scenario}
+import org.openqa.selenium.{OutputType, TakesScreenshot}
 
-trait BrowserDriver extends LazyLogging {
-  logger.info(
-    s"Instantiating Browser: ${sys.props.getOrElse("browser", "'browser' System property not set. This is required")}"
-  )
-
-  implicit lazy val driver: WebDriver = SingletonDriver.getInstance()
+class Hooks extends ScalaDsl with EN with BrowserDriver {
+  After { scenario: Scenario =>
+    if (scenario.isFailed) {
+      val screenshotName = scenario.getName.replaceAll(" ", "_")
+      val screenshot     = driver.asInstanceOf[TakesScreenshot].getScreenshotAs(OutputType.BYTES)
+      scenario.attach(screenshot, "image/png", screenshotName)
+    }
+  }
 }

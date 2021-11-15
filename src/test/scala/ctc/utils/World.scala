@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.utils
+package ctc.utils
 
 // For caching values between steps
 object World {

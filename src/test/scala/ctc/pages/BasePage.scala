@@ -14,14 +14,23 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.utils
+package ctc.pages
 
-import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, Future}
+import ctc.driver.BrowserDriver
+import org.openqa.selenium.By
+import org.scalatest.matchers.should.Matchers
 
-trait AsyncHelper {
+trait BasePage extends BrowserDriver with Matchers {
+  val continueButton = "continue-button"
 
-  def awaitResult[T](request: => Future[T]): T =
-    Await.result(request, Duration.Inf)
+  def submitPage(): Unit =
+    driver.findElement(By.id(continueButton)).click()
 
+  def onPage(pageTitle: String): Unit =
+    if (driver.getTitle != pageTitle)
+      throw PageNotFoundException(
+        s"Expected '$pageTitle' page, but found '$driver.getTitle' page."
+      )
 }
+
+case class PageNotFoundException(s: String) extends Exception(s)

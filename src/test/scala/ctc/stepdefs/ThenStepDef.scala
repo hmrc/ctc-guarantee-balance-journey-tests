@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.cucumber.runner
+package ctc.stepdefs
 
-import io.cucumber.junit.Cucumber
-import io.cucumber.junit.CucumberOptions
-import org.junit.runner.RunWith
+import ctc.pages.Page
 
-@RunWith(classOf[Cucumber])
-@CucumberOptions(
-  features = Array("src/test/resources/features"),
-  glue = Array("uk.gov.hmrc.test.ui.cucumber.stepdefs"),
-  plugin =
-    Array("pretty", "html:target/cucumber", "json:target/cucumber.json", "junit:target/test-reports/ZapRunner.xml"),
-  tags = "@ZAP"
-)
-class ZapRunner {}
+class ThenStepDef extends BaseStepDef {
+
+  Then("""^I should be on the (.+) page$""") { (pageHeading: String) =>
+    Page.pageHeading shouldBe pageHeading
+  }
+
+  Then("""^I should see a confirmation of my balance$""") { () =>
+    Page.currentUrl should include("balance-confirmation")
+  }
+}
