@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.cucumber.stepdefs
+package ctc.utils
 
-import io.cucumber.scala.{EN, ScalaDsl, Scenario}
-import org.openqa.selenium.{OutputType, TakesScreenshot}
-import uk.gov.hmrc.test.ui.driver.BrowserDriver
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
 
-class Hooks extends ScalaDsl with EN with BrowserDriver {
-  After { scenario: Scenario =>
-    if (scenario.isFailed) {
-      val screenshotName = scenario.getName.replaceAll(" ", "_")
-      val screenshot     = driver.asInstanceOf[TakesScreenshot].getScreenshotAs(OutputType.BYTES)
-      scenario.attach(screenshot, "image/png", screenshotName)
-    }
-  }
+trait AsyncHelper {
+
+  def awaitResult[T](request: => Future[T]): T =
+    Await.result(request, Duration.Inf)
+
 }

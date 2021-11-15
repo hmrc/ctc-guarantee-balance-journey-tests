@@ -14,16 +14,25 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui
+package ctc.stepdefs
 
-package object utils {
+import ctc.pages.Page
+import ctc.utils.RichString
 
-  implicit class RichString(string: String) {
+class WhenStepDef extends BaseStepDef {
 
-    def toCamelCase(separator: String = " "): String = {
-      val split = string.trim.split(separator)
-      val tail  = split.tail.map(x => x.head.toUpper + x.tail)
-      split.head.toLowerCase + tail.mkString
-    }
+  When("""^I click the (.+) link$""") { (linkText: String) =>
+    Page.clickLinkByText(linkText)
+    Thread.sleep(5000)
+  }
+
+  When("""^I submit (.+) on the (.+) page$""") { (answer: String, page: String) =>
+    val id = page.toCamelCase()
+    Page.fillInputById(id, answer)
+    Page.continue()
+  }
+
+  When("""^I click the (Try again) button$""") { (_: String) =>
+    Page.tryAgain()
   }
 }
