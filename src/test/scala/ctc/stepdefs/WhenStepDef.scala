@@ -31,8 +31,8 @@ class WhenStepDef extends BaseStepDef {
     Page.continue()
   }
 
-  When("""^I click the (Try again) button$""") { (_: String) =>
-    Page.tryAgain()
+  When("""^I click the (Try again|Start again) button$""") { (_: String) =>
+    Page.submit()
   }
 
   When("""^I click the (Continue|Continue waiting) button$""") { (_: String) =>
@@ -49,6 +49,7 @@ class WhenStepDef extends BaseStepDef {
       case "eori number"                => Page.changeEoriNumber()
       case "guarantee reference number" => Page.changeGuaranteeReferenceNumber()
       case "access code"                => Page.changeAccessCode()
+      case _                            => throw new Exception("Match Error, Wrong text enter : " + changeText)
     }
   }
 }

@@ -34,12 +34,11 @@ object Page extends BrowserDriver {
 
   private def click(by: By): Unit = findElementBy(by).click()
 
-  def submit(): Unit                         = click(By.cssSelector("*[type='submit']"))
-  def continue(): Unit                       = click(By.className("govuk-button"))
+  def continue(): Unit                       = click(By.cssSelector("[data-module='govuk-button']"))
   def changeEoriNumber(): Unit               = click(By.id("change-eori-number"))
   def changeGuaranteeReferenceNumber(): Unit = click(By.id("change-guarantee-reference-number"))
   def changeAccessCode(): Unit               = click(By.id("change-access-code"))
-  def tryAgain(): Unit                       = click(By.id("submit"))
+  def submit(): Unit                         = click(By.id("submit"))
 
   def findElementBy(by: By): WebElement        = driver.findElement(by)
   def findElementsBy(by: By): List[WebElement] = driver.findElements(by).toList

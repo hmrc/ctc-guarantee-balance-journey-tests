@@ -1,8 +1,9 @@
-## Ticket Id: CTCTRADERS-2721
-## Ticket Id: CTCTRADERS-2745
+## Ticket Id: CTCTRADERS-2721 - Create Happy Path pages
+## Ticket Id: CTCTRADERS-2745 - Exception scenario: wait - IE037/906 not returned yet
 
-## Enter x000 as Access code to see Wait page
-## Enter x906 as Access code to see Try Again Page
+## Enter Access Code of x000 and the "Wait page" page is displayed
+## Enter Access Code of x906 and the "Details do not match" page is displayed
+## Enter Access Code of x914 and the "We don't support this type of guarantee" page is displayed
 
 @guarantee_balance
 Feature: Pending guarantee balance
@@ -26,26 +27,31 @@ Feature: Pending guarantee balance
     Then I should be on the We are trying to get your guarantee balance page
 
 
-  Scenario: 2. Verify that Your balance page is displayed when guarantee balance response is successful (IE037)
+  Scenario: 2. Verify that Your balance page is displayed when guarantee balance response is successful
     Given The balance request completes for EORI number GB1234 and GRN 1234
     When I click the Continue waiting button
     Then I should see a confirmation of my balance
 
 
-  Scenario: 3. Verify that Details do not match page is displayed when guarantee balance details do not match EORI number and GRN (IE906)
+  Scenario: 3. Verify that Details do not match page is displayed when guarantee balance details do not match
     Given The details do not match for EORI number GB1234 and GRN 1234
     When I click the Continue waiting button
     Then I should be on the Your details do not match our records page
 
 
-  Scenario: 4. Verify that Try again page is displayed when guarantee balance request is deleted or does not exist
+  Scenario: 4. Verify that Guarantee type not accepted page is displayed when guarantee balance details do not match
+    Given The guarantee type not accepted for EORI number GB1234 and GRN 1234
+    When I click the Continue waiting button
+    Then I should be on the We cannot get the balance for this type of guarantee page
+
+
+  Scenario: 5. Verify that Try again page is displayed when guarantee balance request is deleted or does not exist
     Given The balance request is removed
     When I click the Continue waiting button
     Then I should be on the We have not been able to get your guarantee balance page
 
 
-@wip
-  Scenario: 5. Verify that user is able to successfully submit guarantee balance after try again and changing their access code
+  Scenario: 6. Verify that user is able to successfully submit guarantee balance after try again and changing their access code
     When I click the Continue waiting button
     Then I should be on the We are trying to get your guarantee balance page
     When I choose to wait for 30 seconds
