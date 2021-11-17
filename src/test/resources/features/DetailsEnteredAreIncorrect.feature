@@ -31,7 +31,7 @@ Feature: Guarantee balance incorrect details entered pages are pages
     Then I should be on the Check your answers page
     When I click the Continue button
     Then I should be on the We cannot get the balance for this type of guarantee page
-    When I click the change the reference for the guarantee you check the balance link
+    When I click the change the reference of the guarantee you are checking link
     Then I should be on the Check your answers page
 
 
