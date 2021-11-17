@@ -37,12 +37,13 @@ class GivenStepDef extends BaseStepDef {
     ApiHelper.completeBalanceRequest(eoriNumber, grn)
   }
 
-  Given("""^I click the (Continue|Continue waiting) button$""") { (_: String) =>
-    Page.continue()
+  Given("""^The details do not match for EORI number (.+) and GRN (.+)$""") { (eoriNumber: String, grn: String) =>
+    ApiHelper.incorrectGuaranteeBalanceDetails(eoriNumber, grn, 12)
   }
 
-  Given("""^The details do not match for EORI number (.+) and GRN (.+)$""") { (eoriNumber: String, grn: String) =>
-    ApiHelper.detailsDoNotMatch(eoriNumber, grn)
+  Given("""^The guarantee type not accepted for EORI number (.+) and GRN (.+)$""") {
+    (eoriNumber: String, grn: String) =>
+      ApiHelper.incorrectGuaranteeBalanceDetails(eoriNumber, grn, 14)
   }
 
   Given("""^The balance request is removed$""") { () =>

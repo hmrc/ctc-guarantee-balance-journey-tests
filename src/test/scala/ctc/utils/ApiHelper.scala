@@ -47,25 +47,25 @@ object ApiHelper {
     HttpClient.post(url, json, headers)
   }
 
-  def detailsDoNotMatch(eoriNumber: String, grn: String): Unit = {
+  def incorrectGuaranteeBalanceDetails(eoriNumber: String, grn: String, errorType: Int): Unit = {
     val url = s"${getValue("test_support_local_url")}/balances/$balanceId"
 
     val json = Json.parse(s"""
-      |{
-      |  "taxIdentifier": "$eoriNumber",
-      |  "guaranteeReference": "$grn",
-      |  "completedAt": "${LocalDateTime.now()}",
-      |  "response": {
-      |    "status": "FUNCTIONAL_ERROR",
-      |    "errors": [
-      |      {
-      |        "errorType": 12,
-      |        "errorPointer": "Foo.Bar(1).Baz"
-      |      }
-      |    ]
-      |  }
-      |}
-      |""".stripMargin)
+                             |{
+                             |  "taxIdentifier": "$eoriNumber",
+                             |  "guaranteeReference": "$grn",
+                             |  "completedAt": "${LocalDateTime.now()}",
+                             |  "response": {
+                             |    "status": "FUNCTIONAL_ERROR",
+                             |    "errors": [
+                             |      {
+                             |        "errorType": $errorType,
+                             |        "errorPointer": "Foo.Bar(1).Baz"
+                             |      }
+                             |    ]
+                             |  }
+                             |}
+                             |""".stripMargin)
 
     HttpClient.post(url, json, headers)
   }

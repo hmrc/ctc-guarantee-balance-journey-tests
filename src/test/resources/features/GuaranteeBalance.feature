@@ -1,5 +1,5 @@
-## Ticket Id: CTCTRADERS-2721
-## Ticket Id: CTCTRADERS-2726
+## Ticket Id: CTCTRADERS-2721 - Create Happy Path pages
+## Ticket Id: CTCTRADERS-2726 - Exception scenario: can't try again within 1 min in the same session
 
 ## GRN: Guarantee balance
 ## GG: Government Gateway
