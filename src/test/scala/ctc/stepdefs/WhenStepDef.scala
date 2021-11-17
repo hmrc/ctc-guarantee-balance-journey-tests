@@ -17,7 +17,6 @@
 package ctc.stepdefs
 
 import ctc.pages.Page
-import ctc.utils.RichString
 
 class WhenStepDef extends BaseStepDef {
 
@@ -25,10 +24,10 @@ class WhenStepDef extends BaseStepDef {
     Page.clickLinkByText(linkText)
   }
 
-  When("""^I submit (.+) on the (.+) page$""") { (answer: String, page: String) =>
-    val id = page.toCamelCase()
-    Page.fillInputById(id, answer)
-    Page.continue()
+  When("""^I submit (.+) as (eori number|guarantee reference number|access code) value$""") {
+    (answer: String, _: String) =>
+      Page.fillInputById("value", answer)
+      Page.continue()
   }
 
   When("""^I click the (Try again|Start again) button$""") { (_: String) =>
