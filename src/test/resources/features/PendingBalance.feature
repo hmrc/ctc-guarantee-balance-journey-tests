@@ -14,9 +14,9 @@ Feature: Pending guarantee balance
     And I login with identifier value 123457890
     When I click the Check your guarantee balance link
     Then I should be on the What is your EORI number? page
-    When I submit GB1234 on the EORI number page
-    And I submit 1234 on the guarantee reference number page
-    And I submit 0000 on the access code page
+    When I submit GB1234 as eori number value
+    And I submit 1234 as guarantee reference number value
+    And I submit 0000 as access code value
     Then I should be on the Check your answers page
     When I click the Continue button
     Then I should be on the We are trying to get your guarantee balance page
@@ -66,7 +66,7 @@ Feature: Pending guarantee balance
     Then I should be on the Check your answers page
     When I click the Change link for Access code
     Then I should be on the What is the access code? page
-    When I submit 1212 on the access code page
+    When I submit 1212 as access code value
     Then I should be on the Check your answers page
     When I click the Continue button
     Then I should be on the Your balance page

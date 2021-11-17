@@ -21,15 +21,6 @@ import java.util.Properties
 
 package object utils {
 
-  implicit class RichString(string: String) {
-
-    def toCamelCase(separator: String = " "): String = {
-      val split = string.trim.split(separator)
-      val tail  = split.tail.map(x => x.head.toUpper + x.tail)
-      split.head.toLowerCase + tail.mkString
-    }
-  }
-
   def getValue(key: String): String =
     getPropertyInFile("Configuration.properties", key)
 
