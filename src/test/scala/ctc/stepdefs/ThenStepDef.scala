@@ -25,6 +25,6 @@ class ThenStepDef extends BaseStepDef {
   }
 
   Then("""^I should see a confirmation of my balance$""") { () =>
-    Page.currentUrl should include("balance-confirmation")
+    Page.currentUrl should include("balance")
   }
 }
