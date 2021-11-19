@@ -38,7 +38,7 @@ class GivenStepDef extends BaseStepDef {
   }
 
   Given("""^The details do not match for EORI number (.+) and GRN (.+)$""") { (eoriNumber: String, grn: String) =>
-    ApiHelper.incorrectGuaranteeBalanceDetails(eoriNumber, grn, 12)
+    ApiHelper.detailsDoNotMatch(eoriNumber, grn, 12)
   }
 
   Given("""^The guarantee type not accepted for EORI number (.+) and GRN (.+)$""") {
