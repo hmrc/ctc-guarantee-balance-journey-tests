@@ -47,7 +47,7 @@ object ApiHelper {
     HttpClient.post(url, json, headers)
   }
 
-  def incorrectGuaranteeBalanceDetails(eoriNumber: String, grn: String, errorType: Int): Unit = {
+  def detailsDoNotMatch(eoriNumber: String, grn: String, errorType: Int): Unit = {
     val url = s"${getValue("test_support_local_url")}/balances/$balanceId"
 
     val json = Json.parse(s"""
@@ -61,6 +61,30 @@ object ApiHelper {
                              |      {
                              |        "errorType": $errorType,
                              |        "errorPointer": "Foo.Bar(1).Baz"
+                             |      }
+                             |    ]
+                             |  }
+                             |}
+                             |""".stripMargin)
+
+    HttpClient.post(url, json, headers)
+  }
+
+  def incorrectGuaranteeBalanceDetails(eoriNumber: String, grn: String, errorType: Int): Unit = {
+    val url = s"${getValue("test_support_local_url")}/balances/$balanceId"
+
+    val json = Json.parse(s"""
+                             |{
+                             |  "taxIdentifier": "$eoriNumber",
+                             |  "guaranteeReference": "$grn",
+                             |  "completedAt": "${LocalDateTime.now()}",
+                             |  "response": {
+                             |    "status": "FUNCTIONAL_ERROR",
+                             |    "errors": [
+                             |      {
+                             |        "errorType": $errorType,
+                             |        "errorPointer" : "GRR(1).GQY(1).Query identifier",
+                             |        "errorReason" : "R261"
                              |      }
                              |    ]
                              |  }
