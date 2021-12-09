@@ -14,7 +14,7 @@ Feature: Guarantee balance rate limitation check
     Then I should be on the Manage your transit movements page
     When I click the Check your guarantee balance link
     Then I should be on the What is your EORI number? page
-    When I submit GB1234 as eori number value
+    When I submit GB123456789 as eori number value
     Then I should be on the What is the guarantee reference number? page
     When I submit 1234 as guarantee reference number value
     Then I should be on the What is the access code? page
@@ -27,7 +27,7 @@ Feature: Guarantee balance rate limitation check
 
   Scenario: 1. Verify rate limitation occurs when the same GRN is used in the second attempt within 60 seconds of the first GRN submission
     When I click the check another guarantee balance link
-    And I submit GB1234 as eori number value
+    And I submit GB123456789 as eori number value
     And I submit 1234 as guarantee reference number value
     And I submit 1111 as access code value
     Then I should be on the Check your answers page
@@ -37,7 +37,7 @@ Feature: Guarantee balance rate limitation check
 
   Scenario: 2. Verify that user is able to uses a different GRN on the second attempt submission
     When I click the check another guarantee balance link
-    And I submit GB1234 as eori number value
+    And I submit GB123456789 as eori number value
     And I submit 2233 as guarantee reference number value
     And I submit 1111 as access code value
     Then I should be on the Check your answers page
@@ -49,7 +49,7 @@ Feature: Guarantee balance rate limitation check
   Scenario: 3. Verify that user is able to use the same GRN but different GG login
     Given I login with identifier value 123457890
     When I click the Check your guarantee balance link
-    And I submit GB04321 as eori number value
+    And I submit GB012345678 as eori number value
     And I submit 1234 as guarantee reference number value
     And I submit 1111 as access code value
     Then I should be on the Check your answers page

@@ -12,7 +12,7 @@ Feature: Guarantee balance incorrect details entered pages are pages
     Then I should be on the Manage your transit movements page
     When I click the Check your guarantee balance link
     Then I should be on the What is your EORI number? page
-    When I submit GB1234 as eori number value
+    When I submit GB123456789 as eori number value
     Then I should be on the What is the guarantee reference number? page
     When I submit 1234 as guarantee reference number value
     Then I should be on the What is the access code? page
