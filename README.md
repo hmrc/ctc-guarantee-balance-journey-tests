@@ -1,124 +1,137 @@
-**This is a template README.md.  Be sure to update this with project specific content that describes your ui test project.**
 
 # ctc-guarantee-balance-journey-tests
-UI test suite for the `<digital service name>` using WebDriver and `<scalatest/cucumber>`.  
 
-## Running the tests
+This repo contains all of the acceptance tests which are defined in conjunction with the business using Given, When, 
+Then statements written in Gherkin syntax. 
+It is built using:
 
-Prior to executing the tests ensure you have:
- - Docker - to run mongo and browser (Chrome or Firefox) inside a container 
- - Appropriate [drivers installed](#installing-local-driver-binaries) - to run tests against locally installed Browser
- - Installed/configured [service manager](https://github.com/hmrc/service-manager).  
+    Cucumber
+    Selenium-webDriver
+    SBT to build
+    
+## How to run the journey tests
+Tests can be run in Chrome or Firefox using a GUI or headless browser, either locally or in a docker container (described later).
 
-Run the following command to start services locally:
+### Journeys Covered
 
-    docker run --rm -d --name mongo -d -p 27017:27017 mongo:3.6
-    sm --start PLATFORM_EXAMPLE_UI_TESTS -r --wait 100
+     Balance success journeys
+     Balance pending journeys
+     Incorrect data error journeys
+        
+### Start service manager
 
-Using the `--wait 100` argument ensures a health check is run on all the services started as part of the profile. `100` refers to the given number of seconds to wait for services to pass health checks.
+    sm --start CTC_TRADERS_GUARANTEE_BALANCE_ACCEPTANCE -r
+    
+### Test execution
 
-Then execute the `run_tests.sh` script:
+    ./run.sh
 
-    ./run_tests.sh <browser-driver> <environment> 
+### Driver/Browser Config
+All configuration of the browsers types we test with is handled by a dependency on the [HMRC Webdriver Factory library](https://github.com/hmrc/webdriver-factory)
 
-The `run_tests.sh` script defaults to using `chrome` in the `local` environment.  For a complete list of supported param values, see:
- - `src/test/resources/application.conf` for **environment** 
- - [webdriver-factory](https://github.com/hmrc/webdriver-factory#2-instantiating-a-browser-with-default-options) for **browser-driver**
+We have configured a headless browser type by passing additional Chrome options in the Driver class and access this using the `-Dbrowsertype=headless` jvm option in the `~/run_headless.sh` script.
 
-## Running tests against a containerised browser - on a developer machine
+## Security Tests
+Security tests are dependant on [HMRC Zap Automation library](https://github.com/hmrc/zap-automation) and configured to run using Zap 2.8.0.  
+ZAP tests are configured to scan the request/response of the full suite of journey tests.
 
-The script `./run-browser-with-docker.sh` can be used to start a Chrome or Firefox container on a developer machine. 
-The script requires `remote-chrome` or `remote-firefox` as an argument.
+### Test execution
 
-Read more about the script's functionality [here](run-browser-with-docker.sh).
+#### Jenkins
+To run the security tests on Jenkins run - 
+    https://build.tax.service.gov.uk/job/Common%20Transit%20Convention%20Traders/job/ctc-guarantee-balance-zap-tests/
 
-To run against a containerised Chrome browser:
+#### Locally
+    ./zap.sh -daemon -config api.disablekey=true -port 11000 # Start ZAP in Daemon mode 
+    ./run_zap.sh
 
-```bash
-./run-browser-with-docker.sh remote-chrome 
-./run_tests.sh remote-chrome local
-```
+## Accessbility Tests
+To support accessibility tests we can run the tests with an additional parameter which will force each page into a failure state, allowing us to capture the html of the error messages.
 
-`./run-browser-with-docker.sh` is **NOT** required when running in a CI environment. 
+   ### Test execution
+   
+   #### Jenkins
+To run the accessibility tests on Jenkins run -    
+    https://build.tax.service.gov.uk/job/Common%20Transit%20Convention%20Traders/job/ctc-guarantee-balance-a11y-tests/   
+   
+   #### Locally
+    Accessibility tests cannot be run locally
+ 
+   ### Config
+   * Extent: ~/src/test/resources/extent-config.xml
+   * Suites: ~/src/test/scala/suites/Runner.scala & Runner_WIP.scala
+   * Before: Setup test reports directory
+   * After:  Write report using junit source
+   * Frequency - Report written on suite execution
+   
+   ### Output
+   Reports are written to ~/target/test-reports/html-report/index.html
 
-#### Running the tests against a test environment
+## Data Cleanup
+Cleanup script to drop the 'user-answers' mongo collection.
 
-To run the tests against an environment set the corresponding `host` environment property as specified under
- `<env>.host.services` in the [application.conf](/src/test/resources/application.conf). 
+`./drop_departure_frontend_data.sh`
 
-For example, to execute the `run_tests.sh` script using Chrome remote-webdriver against QA environment 
+## Screenshots
+Screenshot utility allowing screenshots to be taken on demand. This is available to use but not currently being called in any common steps.
 
-    ./run_tests.sh remote-chrome qa
+### To use
+Add `tryTakeScreenShot()` method to steps or page object where required
 
-## Running ZAP tests
+Add jvm option `-Dscreenshots=true` to `~/.run` scripts to capture screenshot
 
-ZAP tests can be automated using the HMRC Dynamic Application Security Testing approach. Running 
-automated ZAP tests should not be considered a substitute for manual exploratory testing using OWASP ZAP.
+Screenshots are output to `~/target/screenshots` as a .png image
 
-#### Tagging tests for ZAP
+## Installing and running the tests in Docker
 
-It is not required to proxy every journey test via ZAP. The intention of proxying a test through ZAP is to expose all the
- relevant pages of an application to ZAP. So tagging a subset of the journey tests or creating a 
- single ZAP focused journey test is sufficient.
+   ### Install Docker
+   * Linux: https://docs.docker.com/install/linux/docker-ce/ubuntu/ followed by
+            https://docs.docker.com/install/linux/linux-postinstall/
+   * Mac (install docker desktop): https://docs.docker.com/docker-for-mac/install/
 
-#### Configuring the browser to proxy via ZAP 
+   ### Start service manager
 
-Setting the system property `zap.proxy=true` configures the browser specified in `browser` property to proxy via ZAP. 
-This is achieved using [webdriver-factory](https://github.com/hmrc/webdriver-factory#proxying-trafic-via-zap).
+    sm --start CTC_TRADERS_GUARANTEE_BALANCE_ACCEPTANCE -r
 
-#### Executing a ZAP test
+   ### Change to the docker/chrome directory
 
-The shell script `run_zap_tests.sh` is available to execute ZAP tests. The script proxies a set of journey tests, 
-tagged as `ZapTests`, via ZAP.  
+    cd $WORKSPACE/ctc-guarantee-balance-journey-tests/docker/chrome/
 
-For example, to execute ZAP tests locally using a Chrome browser
+   ### Build the chrome instance (including the . at the end)
+   *You only need to do this once:*
 
-```
-./run_zap_test.sh chrome local
-```
+     docker build -t chrome .
 
-To execute ZAP tests locally using a remote-chrome browser
+   ### Start the Docker container
+   
+   *This will map service manager, chrome and vnc viewer ports to a Docker alias on the container instance.*
 
-```
-./run-browser-with-docker.sh remote-chrome 
-./run_zap_test.sh remote-chrome local
-``` 
+   `./rundocker.sh` or
+   
+   `./rundocker.sh smenv` 
+   
+   **Note - Passing the "smenv" argument is required if you are running a service manager virtualenv.**
+   
+   ### Run the journey tests
 
-`./run-browser-with-docker.sh` is **NOT** required when running in a CI environment.
+    cd $WORKSPACE/ctc-guarantee-balance-journey-tests/docker/chrome/
+    ./run_remote.sh (runs in remote container using headless browser) or
+    ./run_jenkins.sh (runs in remote container using GUI browser)
+    
+   ### Connect to the VNC server (View running tests)
+   
+   Connect to the image on `vnc://localhost:5900` with your favorite vnc client (if you're on a mac just use Safari)
+   
+   When prompted for a password, enter: `secret`
 
-### Running tests using BrowserStack
-If you would like to run your tests via BrowserStack from your local development environment please refer to the [webdriver-factory](https://github.com/hmrc/webdriver-factory/blob/main/README.md/#user-content-running-tests-using-browser-stack) project.
+   ### Updating selenium version
 
-## Installing local driver binaries
+   Edit  `~/docker/chrome/Dockerfile`
+   
+   Update `FROM selenium/standalone-chrome-debug:<version>` to reflect [Selenium version](https://github.com/SeleniumHQ/docker-selenium/releases)
 
-This project supports UI test execution using Firefox (Geckodriver) and Chrome (Chromedriver) browsers. 
+   ### Useful docker commands
 
-See the `drivers/` directory for some helpful scripts to do the installation work for you.  They should work on both Mac and Linux by running the following command:
-
-    ./installGeckodriver.sh <operating-system> <driver-version>
-    or
-    ./installChromedriver <operating-system> <driver-version>
-
-- *<operating-system>* defaults to **linux64**, however it also supports **macos**
-- *<driver-version>* defaults to **0.21.0** for Gecko/Firefox, and the latest release for Chrome.  You can, however, however pass any version available at the [Geckodriver](https://github.com/mozilla/geckodriver/tags) or [Chromedriver](http://chromedriver.storage.googleapis.com/) repositories.
-
-**Note 1:** *You will need to ensure that you have a recent version of Chrome and/or Firefox installed for the later versions of the drivers to work reliably.*
-
-**Note 2** *These scripts use sudo to set the right permissions on the drivers so you will likely be prompted to enter your password.*
-
-### Scalafmt
- This repository uses [Scalafmt](https://scalameta.org/scalafmt/), a code formatter for Scala. The formatting rules configured for this repository are defined within [.scalafmt.conf](.scalafmt.conf).
-
- To apply formatting to this repository using the configured rules in [.scalafmt.conf](.scalafmt.conf) execute:
-
- ```
- sbt scalafmtAll
- ```
-
- To check files have been formatted as expected execute:
-
- ```
- sbt scalafmtCheckAll scalafmtSbtCheck
- ```
-
-[Visit the official Scalafmt documentation to view a complete list of tasks which can be run.](https://scalameta.org/scalafmt/docs/installation.html#task-keys)
+    docker ps                                   # Lists all running containers
+    docker stop $(docker ps -a -q)              # Stops all running containers
+    docker exec -it <container id> /bin/bash    # Bash access to container
