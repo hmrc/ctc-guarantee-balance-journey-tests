@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,10 @@
 package ctc.utils
 
 import com.mongodb.MongoClientSettings
+import ctc.pages.Page.balanceId
 import org.bson.UuidRepresentation
 import org.mongodb.scala.model.Filters
 import org.mongodb.scala.{MongoClient, MongoCollection, SingleObservable}
-import ctc.pages.Page.balanceId
 
 import java.util.UUID
 import scala.concurrent.ExecutionContext.Implicits.global

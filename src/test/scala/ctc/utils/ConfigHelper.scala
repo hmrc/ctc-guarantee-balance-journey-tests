@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package ctc
+package ctc.utils
 
 import java.io.FileInputStream
 import java.util.Properties
 
-package object utils {
+object ConfigHelper {
 
-  def getValue(key: String): String =
-    getPropertyInFile("Configuration.properties", key)
+  def getValue(key: String): String = getPropertyInFile(key)
 
-  private def getPropertyInFile(file: String, property: String): String = {
-    val messageStream = new FileInputStream(s"./src/test/scala/ctc/utils/$file")
+  private def getPropertyInFile(property: String): String = {
+    val messageStream = new FileInputStream(s"./src/test/resources/configuration.properties")
     val properties    = new Properties()
     properties.load(messageStream)
     properties.getProperty(property, property)

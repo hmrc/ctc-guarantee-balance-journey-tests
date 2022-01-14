@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,9 @@
 
 package ctc.utils
 
-import play.api.libs.json.Json
 import ctc.pages.Page.balanceId
+import ctc.utils.ConfigHelper._
+import play.api.libs.json.Json
 
 import java.time.LocalDateTime
 
