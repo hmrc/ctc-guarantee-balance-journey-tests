@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import ctc.pages.Page
 class WhenStepDef extends BaseStepDef {
 
   When("""^I click the (.+) link$""") { (linkText: String) =>
-    Page.clickLinkByText(linkText)
+    Page.clickByLinkText(linkText)
   }
 
   When("""^I submit (.+) as (eori number|guarantee reference number|access code) value$""") {
@@ -39,16 +39,11 @@ class WhenStepDef extends BaseStepDef {
   }
 
   When("""^I choose to wait for (.+) seconds$""") { (seconds: Int) =>
-    val waitTime = seconds * 1000
-    Thread.sleep(waitTime)
+    Thread.sleep(seconds * 1000)
   }
 
   When("""^I click the Change link for (.+)$""") { (changeText: String) =>
-    changeText.toLowerCase() match {
-      case "eori number"                => Page.changeEoriNumber()
-      case "guarantee reference number" => Page.changeGuaranteeReferenceNumber()
-      case "access code"                => Page.changeAccessCode()
-      case _                            => throw new Exception("Match Error, Wrong text enter : " + changeText)
-    }
+    val page = changeText.toLowerCase.replaceAll(" ", "-")
+    Page.clickById(s"change-$page")
   }
 }
