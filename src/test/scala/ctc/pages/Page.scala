@@ -27,7 +27,7 @@ object Page extends BrowserDriver {
   def currentUrl: String = driver.getCurrentUrl
 
   def balanceId: String = {
-    val pattern                  = "(.+)/check-guarantee-balance/(.+)/(.+)".r
+    val pattern                  = "(.+)/check-transit-guarantee-balance/(.+)/(.+)".r
     val pattern(_, balanceId, _) = currentUrl
     balanceId
   }
