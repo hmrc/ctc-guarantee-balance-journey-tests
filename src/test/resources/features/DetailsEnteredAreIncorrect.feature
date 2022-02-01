@@ -1,7 +1,7 @@
 ## Ticket Id: CTCTRADERS-2772 - New page - "We don't support this type of guarantee"
 
 ## Enter Access Code of x906 and the "Details do not match" page is displayed
-## Enter Access Code of x914 and the "We don't support this type of guarantee" page is displayed
+## Enter Access Code of x914 and the "We cannot get the balance for this type of guarantee" page is displayed
 
 @guarantee_balance
 Feature: Guarantee balance incorrect details entered pages are pages
@@ -12,7 +12,7 @@ Feature: Guarantee balance incorrect details entered pages are pages
     Then I should be on the Manage your transit movements page
     When I click the Check your guarantee balance link
     Then I should be on the What is your EORI number? page
-    When I submit GB123456789 as eori number value
+    When I submit GB123456123456 as eori number value
     Then I should be on the What is the guarantee reference number? page
     When I submit 1234 as guarantee reference number value
     Then I should be on the What is the access code? page
