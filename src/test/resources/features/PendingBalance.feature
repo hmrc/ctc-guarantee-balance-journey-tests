@@ -3,7 +3,7 @@
 
 ## Enter Access Code of x000 and the "Wait page" page is displayed
 ## Enter Access Code of x906 and the "Details do not match" page is displayed
-## Enter Access Code of x914 and the "We don't support this type of guarantee" page is displayed
+## Enter Access Code of x914 and the "We cannot get the balance for this type of guarantee" page is displayed
 
 @guarantee_balance
 Feature: Pending guarantee balance
@@ -14,7 +14,7 @@ Feature: Pending guarantee balance
     And I login with identifier value 123457890
     When I click the Check your guarantee balance link
     Then I should be on the What is your EORI number? page
-    When I submit GB123456789 as eori number value
+    When I submit GB123456123456 as eori number value
     And I submit 1234 as guarantee reference number value
     And I submit 0000 as access code value
     Then I should be on the Check your answers page
@@ -28,19 +28,19 @@ Feature: Pending guarantee balance
 
 
   Scenario: 2. Verify that Your balance page is displayed when guarantee balance response is successful
-    Given The balance request completes for EORI number GB1234 and GRN 1234
+    Given The balance request completes for EORI number GB123456123456 and GRN 1234
     When I click the Continue waiting button
     Then I should see a confirmation of my balance
 
 
   Scenario: 3. Verify that Details do not match page is displayed when guarantee balance details do not match
-    Given The details do not match for EORI number GB1234 and GRN 1234
+    Given The details do not match for EORI number GB123456123456 and GRN 1234
     When I click the Continue waiting button
     Then I should be on the Your details do not match our records page
 
 
   Scenario: 4. Verify that Guarantee type not accepted page is displayed when guarantee balance details do not match
-    Given The guarantee type not accepted for EORI number GB1234 and GRN 1234
+    Given The guarantee type not accepted for EORI number GB123456123456 and GRN 1234
     When I click the Continue waiting button
     Then I should be on the We cannot get the balance for this type of guarantee page
 
