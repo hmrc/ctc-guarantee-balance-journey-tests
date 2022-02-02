@@ -46,4 +46,10 @@ class WhenStepDef extends BaseStepDef {
     val page = changeText.toLowerCase.replaceAll(" ", "-")
     Page.clickById(s"change-$page")
   }
+
+  And("""^(?:I )?pause execution for (.+) milliseconds$""") {
+    delay: Int =>
+      Thread.sleep(delay)
+  }
+
 }
