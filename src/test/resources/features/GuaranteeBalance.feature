@@ -15,7 +15,7 @@ Feature: Guarantee balance rate limitation check
     When I click the Check your guarantee balance link
     Then I should be on the What is your EORI number? page
     When I submit GB123456123456 as eori number value
-    Then I should be on the What is the guarantee reference number? page
+    Then I should be on the Guarantee reference number page
     When I submit 1234 as guarantee reference number value
     Then I should be on the What is the access code? page
     When I submit 1111 as access code value
