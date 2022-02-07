@@ -47,9 +47,8 @@ class WhenStepDef extends BaseStepDef {
     Page.clickById(s"change-$page")
   }
 
-  And("""^(?:I )?pause execution for (.+) milliseconds$""") {
-    delay: Int =>
-      Thread.sleep(delay)
+  And("""^(?:I )?pause execution for (.+) milliseconds$""") { delay: Int =>
+    Thread.sleep(delay)
   }
 
 }
