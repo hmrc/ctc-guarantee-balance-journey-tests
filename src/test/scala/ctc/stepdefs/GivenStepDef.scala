@@ -33,6 +33,11 @@ class GivenStepDef extends BaseStepDef {
     Page.navigateTo(getValue("local_manage_transit_movements_url"))
   }
 
+  Given("""^I login with no identifier value""") { () =>
+    Page.authenticate()
+    Page.navigateTo(getValue("local_guarantee_balance_url"))
+  }
+
   Given("""^The balance request completes for EORI number (.+) and GRN (.+)$""") { (eoriNumber: String, grn: String) =>
     ApiHelper.completeBalanceRequest(eoriNumber, grn)
   }

@@ -42,6 +42,8 @@ object Page extends BrowserDriver {
   def findElementBy(by: By): WebElement        = driver.findElement(by)
   def findElementsBy(by: By): List[WebElement] = driver.findElements(by).toList
 
+  def findByLinkText(linkText: String): List[WebElement] = findElementsBy(By.linkText(linkText))
+
   def navigateTo(url: String): Unit = driver.navigate().to(url)
 
   def clearCookies(): Unit = driver.manage().deleteAllCookies()
@@ -60,11 +62,20 @@ object Page extends BrowserDriver {
     fillInput(By.cssSelector(cssSelector), text)
 
   def authenticate(identifierValue: String): Unit = {
-    navigateTo(getValue("local_auth_login_url"))
-    fillInputByCssSelector("*[name='redirectionUrl']", getValue("local_auth_redirect_url"))
+    navigateToAuthWizardAndFillRedirectUrlInput()
     fillInputByCssSelector("*[name='enrolment[0].name']", getValue("enrolment_key"))
     fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].name']", getValue("identifier_name"))
     fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].value']", identifierValue)
     submit()
+  }
+
+  def authenticate(): Unit = {
+    navigateToAuthWizardAndFillRedirectUrlInput()
+    submit()
+  }
+
+  private def navigateToAuthWizardAndFillRedirectUrlInput(): Unit = {
+    navigateTo(getValue("local_auth_login_url"))
+    fillInputByCssSelector("*[name='redirectionUrl']", getValue("local_auth_redirect_url"))
   }
 }
