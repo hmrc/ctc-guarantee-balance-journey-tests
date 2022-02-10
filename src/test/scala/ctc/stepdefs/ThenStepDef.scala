@@ -27,4 +27,12 @@ class ThenStepDef extends BaseStepDef {
   Then("""^I should see a confirmation of my balance$""") { () =>
     Page.currentUrl should include("balance")
   }
+
+  Then("""^I (should|shouldn't) see a (.+) link$""") { (assertion: String, linkText: String) =>
+    Page.findByLinkText(linkText).length match {
+      case x if x > 0 => assert(assertion == "should" && x == 1)
+      case _          => assert(assertion == "shouldn't")
+    }
+  }
+
 }
