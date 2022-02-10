@@ -1,4 +1,4 @@
-@guarantee_balance @wip
+@guarantee_balance
 Feature: Guarantee balance referral
 
 
