@@ -18,8 +18,7 @@ package ctc.stepdefs
 
 import ctc.pages.Page
 import ctc.utils.ConfigHelper._
-import ctc.utils.{ApiHelper, MongoHelper, World}
-import org.openqa.selenium.By.cssSelector
+import ctc.utils.{ApiHelper, MongoHelper}
 
 class GivenStepDef extends BaseStepDef {
 
@@ -29,7 +28,6 @@ class GivenStepDef extends BaseStepDef {
 
   Given("""^I login with identifier value (.*)$""") { (identifierValue: String) =>
     Page.authenticate(identifierValue)
-    World.bearerToken = Page.findElementBy(cssSelector("[data-session-id='authToken']")).getText
     Page.navigateTo(getValue("local_manage_transit_movements_url"))
   }
 

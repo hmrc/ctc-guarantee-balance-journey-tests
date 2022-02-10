@@ -18,6 +18,8 @@ package ctc.pages
 
 import ctc.driver.BrowserDriver
 import ctc.utils.ConfigHelper._
+import ctc.utils.World
+import org.openqa.selenium.By.cssSelector
 import org.openqa.selenium.{By, WebElement}
 
 import scala.collection.convert.ImplicitConversions._
@@ -61,17 +63,18 @@ object Page extends BrowserDriver {
   def fillInputByCssSelector(cssSelector: String, text: String): Unit =
     fillInput(By.cssSelector(cssSelector), text)
 
-  def authenticate(identifierValue: String): Unit = {
-    navigateToAuthWizardAndFillRedirectUrlInput()
-    fillInputByCssSelector("*[name='enrolment[0].name']", getValue("enrolment_key"))
-    fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].name']", getValue("identifier_name"))
-    fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].value']", identifierValue)
-    submit()
-  }
+  def authenticate(identifierValue: String): Unit =
+    authenticate { () =>
+      fillInputByCssSelector("*[name='enrolment[0].name']", getValue("enrolment_key"))
+      fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].name']", getValue("identifier_name"))
+      fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].value']", identifierValue)
+    }
 
-  def authenticate(): Unit = {
+  def authenticate(fillAdditionalInputs: () => Unit = () => Unit): Unit = {
     navigateToAuthWizardAndFillRedirectUrlInput()
+    fillAdditionalInputs()
     submit()
+    World.bearerToken = findElementBy(cssSelector("[data-session-id='authToken']")).getText
   }
 
   private def navigateToAuthWizardAndFillRedirectUrlInput(): Unit = {
