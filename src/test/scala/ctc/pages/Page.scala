@@ -71,14 +71,10 @@ object Page extends BrowserDriver {
     }
 
   def authenticate(fillAdditionalInputs: () => Unit = () => Unit): Unit = {
-    navigateToAuthWizardAndFillRedirectUrlInput()
+    navigateTo(getValue("local_auth_login_url"))
+    fillInputByCssSelector("*[name='redirectionUrl']", getValue("local_auth_redirect_url"))
     fillAdditionalInputs()
     submit()
     World.bearerToken = findElementBy(cssSelector("[data-session-id='authToken']")).getText
-  }
-
-  private def navigateToAuthWizardAndFillRedirectUrlInput(): Unit = {
-    navigateTo(getValue("local_auth_login_url"))
-    fillInputByCssSelector("*[name='redirectionUrl']", getValue("local_auth_redirect_url"))
   }
 }
