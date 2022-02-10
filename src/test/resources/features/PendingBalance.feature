@@ -65,7 +65,7 @@ Feature: Pending guarantee balance
     When I click the check that your details are correct link
     Then I should be on the Check your answers page
     When I click the Change link for Access code
-    Then I should be on the What is the access code? page
+    Then I should be on the Access code page
     When I submit 1212 as access code value
     Then I should be on the Check your answers page
     When I click the Continue button

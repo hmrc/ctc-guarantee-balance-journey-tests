@@ -15,7 +15,7 @@ Feature: Guarantee balance incorrect details entered pages are pages
     When I submit GB123456123456 as eori number value
     Then I should be on the Guarantee reference number page
     When I submit 1234 as guarantee reference number value
-    Then I should be on the What is the access code? page
+    Then I should be on the Access code page
 
 
   Scenario: 1. Your details do not match our records page is displayed when access code x906 and user can navigate to Check your answers page
