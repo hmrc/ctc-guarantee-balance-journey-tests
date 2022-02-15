@@ -17,7 +17,7 @@
 package ctc.utils
 
 import com.mongodb.MongoClientSettings
-import ctc.pages.Page.balanceId
+import ctc.utils.ApiHelper.balanceId
 import org.bson.UuidRepresentation
 import org.mongodb.scala.model.Filters
 import org.mongodb.scala.{MongoClient, MongoCollection, SingleObservable}

@@ -34,7 +34,7 @@ class WhenStepDef extends BaseStepDef {
     Page.submit()
   }
 
-  When("""^I click the (Continue|Continue waiting) button$""") { (_: String) =>
+  When("""^I click the (Continue) button$""") { (_: String) =>
     Page.continue()
   }
 

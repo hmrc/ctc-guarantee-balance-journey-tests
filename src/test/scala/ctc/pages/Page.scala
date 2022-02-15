@@ -28,17 +28,11 @@ object Page extends BrowserDriver {
 
   def currentUrl: String = driver.getCurrentUrl
 
-  def balanceId: String = {
-    val pattern                  = "(.+)/check-transit-guarantee-balance/(.+)/(.+)".r
-    val pattern(_, balanceId, _) = currentUrl
-    balanceId
-  }
-
   private def click(by: By): Unit             = findElementBy(by).click()
   def clickById(id: String): Unit             = click(By.id(id))
   def clickByLinkText(linkText: String): Unit = click(By.linkText(linkText))
 
-  def continue(): Unit = click(By.cssSelector("[data-module='govuk-button']"))
+  def continue(): Unit = clickById("continue")
   def submit(): Unit   = clickById("submit")
 
   def findElementBy(by: By): WebElement        = driver.findElement(by)

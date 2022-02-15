@@ -4,7 +4,6 @@
 ## GRN: Guarantee balance
 ## GG: Government Gateway
 
-
 @guarantee_balance
 Feature: Guarantee balance rate limitation check
 
@@ -32,7 +31,7 @@ Feature: Guarantee balance rate limitation check
     And I submit 1111 as access code value
     Then I should be on the Check your answers page
     When I click the Continue button
-    Then I should be on the You can try again page
+    Then I should be on the We have not been able to get your guarantee balance page
 
 
   Scenario: 2. Verify that user is able to uses a different GRN on the second attempt submission
