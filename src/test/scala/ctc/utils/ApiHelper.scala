@@ -16,8 +16,9 @@
 
 package ctc.utils
 
-import ctc.pages.Page.balanceId
+import ctc.pages.Page.findElementBy
 import ctc.utils.ConfigHelper._
+import org.openqa.selenium.By
 import play.api.libs.json.Json
 
 import java.time.LocalDateTime
@@ -28,6 +29,8 @@ object ApiHelper {
     ("Accept", "application/vnd.hmrc.1.0+json"),
     ("Authorization", World.bearerToken)
   )
+
+  def balanceId(): String = findElementBy(By.id("balanceId")).getAttribute("value")
 
   def completeBalanceRequest(eoriNumber: String, grn: String): Unit = {
     val url = s"${getValue("test_support_local_url")}/balances/$balanceId"

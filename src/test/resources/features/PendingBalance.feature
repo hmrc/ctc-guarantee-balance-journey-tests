@@ -19,53 +19,54 @@ Feature: Pending guarantee balance
     And I submit 0000 as access code value
     Then I should be on the Check your answers page
     When I click the Continue button
-    Then I should be on the We are trying to get your guarantee balance page
+    Then I should be on the We have not been able to get your guarantee balance page
 
 
   Scenario: 1. Verify that Wait page is displayed when guarantee balance request is still pending on selecting Continue waiting button
-    When I click the Continue waiting button
-    Then I should be on the We are trying to get your guarantee balance page
+    When I click the Try again button
+    #When I click the Continue waiting button
+    Then I should be on the We have not been able to get your guarantee balance page
 
 
   Scenario: 2. Verify that Your balance page is displayed when guarantee balance response is successful
     Given The balance request completes for EORI number GB123456123456 and GRN 1234
-    When I click the Continue waiting button
+    When I click the Try again button
     Then I should see a confirmation of my balance
 
 
   Scenario: 3. Verify that Details do not match page is displayed when guarantee balance details do not match
     Given The details do not match for EORI number GB123456123456 and GRN 1234
-    When I click the Continue waiting button
+    When I click the Try again button
     Then I should be on the Your details do not match our records page
 
 
   Scenario: 4. Verify that Guarantee type not accepted page is displayed when guarantee balance details do not match
     Given The guarantee type not accepted for EORI number GB123456123456 and GRN 1234
-    When I click the Continue waiting button
+    When I click the Try again button
     Then I should be on the We cannot get the balance for this type of guarantee page
 
 
   Scenario: 5. Verify that Try again page is displayed when guarantee balance request is deleted or does not exist
     Given The balance request is removed
-    When I click the Continue waiting button
+    When I click the Try again button
     Then I should be on the We have not been able to get your guarantee balance page
 
 
   Scenario: 6. Verify that user is able to successfully submit guarantee balance after try again and changing their access code
-    When I click the Continue waiting button
-    Then I should be on the We are trying to get your guarantee balance page
+    When I click the Try again button
+    Then I should be on the We have not been able to get your guarantee balance page
     When I choose to wait for 30 seconds
-    And I click the Continue waiting button
+    And I click the Try again button
     Then I should be on the We have not been able to get your guarantee balance page
     When I click the Try again button
-    Then I should be on the We are trying to get your guarantee balance page
+    Then I should be on the We have not been able to get your guarantee balance page
     When I choose to wait for 30 seconds
-    And I click the Continue waiting button
+    And I click the Try again button
     Then I should be on the We have not been able to get your guarantee balance page
     When I click the check that your details are correct link
     Then I should be on the Check your answers page
     When I click the Change link for Access code
-    Then I should be on the What is the access code? page
+    Then I should be on the Access code page
     When I submit 1212 as access code value
     Then I should be on the Check your answers page
     When I click the Continue button

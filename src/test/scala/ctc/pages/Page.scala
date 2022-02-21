@@ -18,6 +18,8 @@ package ctc.pages
 
 import ctc.driver.BrowserDriver
 import ctc.utils.ConfigHelper._
+import ctc.utils.World
+import org.openqa.selenium.By.cssSelector
 import org.openqa.selenium.{By, WebElement}
 
 import scala.collection.convert.ImplicitConversions._
@@ -26,21 +28,17 @@ object Page extends BrowserDriver {
 
   def currentUrl: String = driver.getCurrentUrl
 
-  def balanceId: String = {
-    val pattern                  = "(.+)/check-transit-guarantee-balance/(.+)/(.+)".r
-    val pattern(_, balanceId, _) = currentUrl
-    balanceId
-  }
-
   private def click(by: By): Unit             = findElementBy(by).click()
   def clickById(id: String): Unit             = click(By.id(id))
   def clickByLinkText(linkText: String): Unit = click(By.linkText(linkText))
 
-  def continue(): Unit = click(By.cssSelector("[data-module='govuk-button']"))
+  def continue(): Unit = clickById("continue")
   def submit(): Unit   = clickById("submit")
 
   def findElementBy(by: By): WebElement        = driver.findElement(by)
   def findElementsBy(by: By): List[WebElement] = driver.findElements(by).toList
+
+  def findByLinkText(linkText: String): List[WebElement] = findElementsBy(By.linkText(linkText))
 
   def navigateTo(url: String): Unit = driver.navigate().to(url)
 
@@ -59,12 +57,18 @@ object Page extends BrowserDriver {
   def fillInputByCssSelector(cssSelector: String, text: String): Unit =
     fillInput(By.cssSelector(cssSelector), text)
 
-  def authenticate(identifierValue: String): Unit = {
+  def authenticate(identifierValue: String): Unit =
+    authenticate { () =>
+      fillInputByCssSelector("*[name='enrolment[0].name']", getValue("enrolment_key"))
+      fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].name']", getValue("identifier_name"))
+      fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].value']", identifierValue)
+    }
+
+  def authenticate(fillAdditionalInputs: () => Unit = () => Unit): Unit = {
     navigateTo(getValue("local_auth_login_url"))
     fillInputByCssSelector("*[name='redirectionUrl']", getValue("local_auth_redirect_url"))
-    fillInputByCssSelector("*[name='enrolment[0].name']", getValue("enrolment_key"))
-    fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].name']", getValue("identifier_name"))
-    fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].value']", identifierValue)
+    fillAdditionalInputs()
     submit()
+    World.bearerToken = findElementBy(cssSelector("[data-session-id='authToken']")).getText
   }
 }
