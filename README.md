@@ -70,7 +70,7 @@ To run the accessibility tests on Jenkins run -
 ## Data Cleanup
 Cleanup script to drop the 'user-answers' mongo collection.
 
-`./drop_departure_frontend_data.sh`
+`./drop_guarantee_balance_frontend_data.sh`
 
 ## Screenshots
 Screenshot utility allowing screenshots to be taken on demand. This is available to use but not currently being called in any common steps.
