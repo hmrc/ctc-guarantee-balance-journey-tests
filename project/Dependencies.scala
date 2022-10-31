@@ -5,7 +5,6 @@ object Dependencies {
   val test: Seq[ModuleID] = Seq(
     "uk.gov.hmrc"         %% "webdriver-factory"      % "0.38.0",
     "org.scalatest"       %% "scalatest"              % "3.2.14",
-    "org.scalatestplus"   %% "selenium-3-141"         % "3.2.10.0",
     "com.vladsch.flexmark" % "flexmark-all"           % "0.64.0",
     "io.cucumber"         %% "cucumber-scala"         % "8.11.0",
     "io.cucumber"          % "cucumber-junit"         % "7.8.1",
