@@ -30,7 +30,7 @@ object ApiHelper {
     ("Authorization", World.bearerToken)
   )
 
-  def balanceId(): String = findElementBy(By.id("balanceId")).getAttribute("value")
+  def balanceId: String = findElementBy(By.id("balanceId")).getAttribute("value")
 
   def completeBalanceRequest(eoriNumber: String, grn: String): Unit = {
     val url = s"${getValue("test_support_local_url")}/balances/$balanceId"

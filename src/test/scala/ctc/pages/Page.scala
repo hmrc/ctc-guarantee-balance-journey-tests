@@ -22,7 +22,7 @@ import ctc.utils.World
 import org.openqa.selenium.By.cssSelector
 import org.openqa.selenium.{By, WebElement}
 
-import scala.collection.convert.ImplicitConversions._
+import scala.jdk.CollectionConverters._
 
 object Page extends BrowserDriver {
 
@@ -36,7 +36,7 @@ object Page extends BrowserDriver {
   def submit(): Unit   = clickById("submit")
 
   def findElementBy(by: By): WebElement        = driver.findElement(by)
-  def findElementsBy(by: By): List[WebElement] = driver.findElements(by).toList
+  def findElementsBy(by: By): List[WebElement] = driver.findElements(by).asScala.toList
 
   def findByLinkText(linkText: String): List[WebElement] = findElementsBy(By.linkText(linkText))
 
@@ -58,16 +58,16 @@ object Page extends BrowserDriver {
     fillInput(By.cssSelector(cssSelector), text)
 
   def authenticate(identifierValue: String): Unit =
-    authenticate { () =>
+    authenticate {
       fillInputByCssSelector("*[name='enrolment[0].name']", getValue("enrolment_key"))
       fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].name']", getValue("identifier_name"))
       fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].value']", identifierValue)
     }
 
-  def authenticate(fillAdditionalInputs: () => Unit = () => Unit): Unit = {
+  def authenticate(fillAdditionalInputs: => Unit = ()): Unit = {
     navigateTo(getValue("local_auth_login_url"))
     fillInputByCssSelector("*[name='redirectionUrl']", getValue("local_auth_redirect_url"))
-    fillAdditionalInputs()
+    fillAdditionalInputs
     submit()
     World.bearerToken = findElementBy(cssSelector("[data-session-id='authToken']")).getText
   }
