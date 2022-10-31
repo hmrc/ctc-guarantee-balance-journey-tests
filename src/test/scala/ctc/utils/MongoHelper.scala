@@ -23,8 +23,6 @@ import org.mongodb.scala.model.Filters
 import org.mongodb.scala.{MongoClient, MongoCollection, SingleObservable}
 
 import java.util.UUID
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 
 object MongoHelper extends AsyncHelper {
 
@@ -38,13 +36,7 @@ object MongoHelper extends AsyncHelper {
       .getDatabase("transit-movements-guarantee-balance")
       .getCollection("balance-requests")
 
-    awaitResult(
-      amend(collection)
-        .toFuture()
-        .recoverWith { case t =>
-          Future.failed(t)
-        }
-    )
+    awaitResult(amend(collection).toFuture())
 
     client.close()
   }
