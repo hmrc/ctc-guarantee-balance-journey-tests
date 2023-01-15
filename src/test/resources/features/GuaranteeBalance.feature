@@ -15,7 +15,7 @@ Feature: Guarantee balance rate limitation check
     Then I should be on the What is your EORI number? page
     When I submit GB123456123456 as eori number value
     Then I should be on the Guarantee reference number page
-    When I submit 1234 as guarantee reference number value
+    When I submit 22GB1111111111112 as guarantee reference number value
     Then I should be on the Access code page
     When I submit 1111 as access code value
     Then I should be on the Check your answers page
@@ -27,7 +27,7 @@ Feature: Guarantee balance rate limitation check
   Scenario: 1. Verify rate limitation occurs when the same GRN is used in the second attempt within 60 seconds of the first GRN submission
     When I click the check another guarantee balance link
     And I submit GB123456123456 as eori number value
-    And I submit 1234 as guarantee reference number value
+    And I submit 22GB1111111111112 as guarantee reference number value
     And I submit 1111 as access code value
     Then I should be on the Check your answers page
     When I click the Continue button
@@ -51,7 +51,7 @@ Feature: Guarantee balance rate limitation check
     Given I login with identifier value 123457890
     When I click the Check your guarantee balance link
     And I submit GB0123456789012 as eori number value
-    And I submit 1234 as guarantee reference number value
+    And I submit 22GB1111111111112 as guarantee reference number value
     And I submit 1111 as access code value
     Then I should be on the Check your answers page
     When I click the Continue button

@@ -10,7 +10,7 @@ Feature: Guarantee balance referral
     Then I should be on the What is your EORI number? page
     When I submit GB123456123456 as eori number value
     Then I should be on the Guarantee reference number page
-    When I submit 1234 as guarantee reference number value
+    When I submit 22GB1111111111112 as guarantee reference number value
     Then I should be on the Access code page
     When I submit 1111 as access code value
     Then I should be on the Check your answers page
@@ -26,7 +26,7 @@ Feature: Guarantee balance referral
     Then I should be on the What is your EORI number? page
     When I submit GB123456123456 as eori number value
     Then I should be on the Guarantee reference number page
-    When I submit 1234 as guarantee reference number value
+    When I submit 22GB1111111111112 as guarantee reference number value
     Then I should be on the Access code page
     When I submit 1111 as access code value
     Then I should be on the Check your answers page
