@@ -17,7 +17,24 @@ Feature: Guarantee balance rate limitation check
     Then I should be on the Guarantee reference number page
     When I submit 22GB1111111111112 as guarantee reference number value
     Then I should be on the Access code page
-    When I submit 1111 as access code value
+    When I submit AB12 as access code value
+    Then I should be on the Check your answers page
+    When I click the Continue button
+    Then I should be on the Your balance page
+    And I should see a confirmation of my balance
+
+  @wip
+  Scenario: 0. NCTS5 API V2 Verify that confirmation of my balance is displayed when valid data is used to submit my guarantee balance
+    Given I clear my cookies
+    And I login with identifier value 123457890
+    Then I should be on the Manage your transit movements page
+    When I click the Check your guarantee balance link
+    Then I should be on the What is your EORI number? page
+    When I submit GB123456123456 as eori number value
+    Then I should be on the Guarantee reference number page
+    When I submit 22GB1111111111112 as guarantee reference number value
+    Then I should be on the Access code page
+    When I submit AB12 as access code value
     Then I should be on the Check your answers page
     When I click the Continue button
     Then I should be on the Your balance page
@@ -28,7 +45,7 @@ Feature: Guarantee balance rate limitation check
     When I click the check another guarantee balance link
     And I submit GB123456123456 as eori number value
     And I submit 22GB1111111111112 as guarantee reference number value
-    And I submit 1111 as access code value
+    And I submit AB12 as access code value
     Then I should be on the Check your answers page
     When I click the Continue button
     Then I should be on the We have not been able to get your guarantee balance page
@@ -40,7 +57,7 @@ Feature: Guarantee balance rate limitation check
     When I click the check another guarantee balance link
     And I submit GB123456123456 as eori number value
     And I submit 2233 as guarantee reference number value
-    And I submit 1111 as access code value
+    And I submit AB12 as access code value
     Then I should be on the Check your answers page
     When I click the Continue button
     Then I should be on the Your balance page
@@ -52,7 +69,7 @@ Feature: Guarantee balance rate limitation check
     When I click the Check your guarantee balance link
     And I submit GB0123456789012 as eori number value
     And I submit 22GB1111111111112 as guarantee reference number value
-    And I submit 1111 as access code value
+    And I submit AB12 as access code value
     Then I should be on the Check your answers page
     When I click the Continue button
     Then I should be on the Your balance page
