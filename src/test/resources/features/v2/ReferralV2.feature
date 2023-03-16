@@ -1,4 +1,4 @@
-@guarantee_balance_v2
+
 Feature: Guarantee balance referral
 
   Scenario: 1. User accesses journey via NCTS

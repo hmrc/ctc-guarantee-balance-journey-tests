@@ -24,6 +24,10 @@ class WhenStepDef extends BaseStepDef {
     Page.clickByLinkText(linkText)
   }
 
+  When("""^I click the change link for (.+)$""") { (linkText: String) =>
+    Page.clickLinkByIdTextSplit(linkText)
+  }
+
   When("""^I submit (.+) as (eori number|guarantee reference number|access code) value$""") {
     (answer: String, _: String) =>
       Page.fillInputById("value", answer)

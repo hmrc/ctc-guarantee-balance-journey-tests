@@ -32,6 +32,11 @@ object Page extends BrowserDriver {
   def clickById(id: String): Unit             = click(By.id(id))
   def clickByLinkText(linkText: String): Unit = click(By.linkText(linkText))
 
+  def clickLinkByIdTextSplit(text: String): Unit = {
+    val id = s"change-${text.replace(" ", "-").toLowerCase}"
+    clickById(id)
+  }
+
   def continue(): Unit = clickById("continue")
   def submit(): Unit   = clickById("submit")
 

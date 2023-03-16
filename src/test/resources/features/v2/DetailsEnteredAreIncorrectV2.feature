@@ -3,7 +3,6 @@
 ## Enter Access Code of x906 and the "Details do not match" page is displayed
 ## Enter Access Code of x914 and the "We cannot get the balance for this type of guarantee" page is displayed
 
-@guarantee_balance_v2
 Feature: Guarantee balance incorrect details entered pages are pages
 
   Background: Guarantee balance background test set up

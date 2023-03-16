@@ -4,7 +4,6 @@
 ## GRN: Guarantee balance
 ## GG: Government Gateway
 
-@guarantee_balance_v2
 Feature: Guarantee balance rate limitation check
 
   Background: Verify that confirmation of my balance is displayed when valid data is used to submit my guarantee balance
