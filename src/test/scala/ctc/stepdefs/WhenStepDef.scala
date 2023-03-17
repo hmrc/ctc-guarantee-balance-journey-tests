@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,10 @@ class WhenStepDef extends BaseStepDef {
 
   When("""^I click the (.+) link$""") { (linkText: String) =>
     Page.clickByLinkText(linkText)
+  }
+
+  When("""^I click the change link for (.+)$""") { (linkText: String) =>
+    Page.clickLinkByIdTextSplit(linkText)
   }
 
   When("""^I submit (.+) as (eori number|guarantee reference number|access code) value$""") {

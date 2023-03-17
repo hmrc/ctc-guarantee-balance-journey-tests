@@ -15,7 +15,7 @@ Feature: Pending guarantee balance
     When I click the Check your guarantee balance link
     Then I should be on the What is your EORI number? page
     When I submit GB123456123456 as eori number value
-    And I submit 1234 as guarantee reference number value
+    And I submit 22GB1111111111112 as guarantee reference number value
     And I submit 0000 as access code value
     Then I should be on the Check your answers page
     When I click the Continue button
@@ -29,19 +29,19 @@ Feature: Pending guarantee balance
 
 
   Scenario: 2. Verify that Your balance page is displayed when guarantee balance response is successful
-    Given The balance request completes for EORI number GB123456123456 and GRN 1234
+    Given The balance request completes for EORI number GB123456123456 and GRN 22GB1111111111112
     When I click the Try again button
     Then I should see a confirmation of my balance
 
 
   Scenario: 3. Verify that Details do not match page is displayed when guarantee balance details do not match
-    Given The details do not match for EORI number GB123456123456 and GRN 1234
+    Given The details do not match for EORI number GB123456123456 and GRN 22GB1111111111112
     When I click the Try again button
     Then I should be on the Your details do not match our records page
 
 
   Scenario: 4. Verify that Guarantee type not accepted page is displayed when guarantee balance details do not match
-    Given The guarantee type not accepted for EORI number GB123456123456 and GRN 1234
+    Given The guarantee type not accepted for EORI number GB123456123456 and GRN 22GB1111111111112
     When I click the Try again button
     Then I should be on the We cannot get the balance for this type of guarantee page
 

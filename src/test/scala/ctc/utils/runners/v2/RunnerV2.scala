@@ -14,19 +14,16 @@
  * limitations under the License.
  */
 
-package ctc.stepdefs
+package ctc.utils.runners.v2
 
-import ctc.driver.BrowserDriver
-import io.cucumber.scala.{EN, ScalaDsl}
-import org.scalatest.concurrent.Eventually
-import org.scalatest.matchers.should.Matchers
-import uk.gov.hmrc.webdriver.SingletonDriver
+import io.cucumber.junit.{Cucumber, CucumberOptions}
+import org.junit.runner.RunWith
 
-import scala.util.Try
-
-trait BaseStepDef extends ScalaDsl with EN with BrowserDriver with Eventually with Matchers {
-
-  sys.addShutdownHook {
-    Try(SingletonDriver.closeInstance())
-  }
-}
+@RunWith(classOf[Cucumber])
+@CucumberOptions(
+  features = Array("src/test/resources/features"),
+  glue = Array("ctc.stepdefs"),
+  plugin = Array("pretty", "html:target/cucumber", "json:target/cucumber.json", "junit:target/test-reports/Runner.xml"),
+  tags = "@guarantee_balance_v2"
+)
+class RunnerV2 {}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +32,11 @@ object Page extends BrowserDriver {
   def clickById(id: String): Unit             = click(By.id(id))
   def clickByLinkText(linkText: String): Unit = click(By.linkText(linkText))
 
+  def clickLinkByIdTextSplit(text: String): Unit = {
+    val id = s"change-${text.replace(" ", "-").toLowerCase}"
+    clickById(id)
+  }
+
   def continue(): Unit = clickById("continue")
   def submit(): Unit   = clickById("submit")
 
@@ -61,6 +66,13 @@ object Page extends BrowserDriver {
     authenticate {
       fillInputByCssSelector("*[name='enrolment[0].name']", getValue("enrolment_key"))
       fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].name']", getValue("identifier_name"))
+      fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].value']", identifierValue)
+    }
+
+  def authenticateNewEnrolment(identifierValue: String): Unit =
+    authenticate {
+      fillInputByCssSelector("*[name='enrolment[0].name']", getValue("new_enrolment_key"))
+      fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].name']", getValue("new_identifier_name"))
       fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].value']", identifierValue)
     }
 

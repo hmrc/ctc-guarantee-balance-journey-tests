@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,11 @@ class GivenStepDef extends BaseStepDef {
 
   Given("""^I login with identifier value (.*)$""") { (identifierValue: String) =>
     Page.authenticate(identifierValue)
+    Page.navigateTo(getValue("local_manage_transit_movements_url"))
+  }
+
+  Given("""^I authenticate with new enrolment and identifier value (.*)$""") { (identifierValue: String) =>
+    Page.authenticateNewEnrolment(identifierValue)
     Page.navigateTo(getValue("local_manage_transit_movements_url"))
   }
 

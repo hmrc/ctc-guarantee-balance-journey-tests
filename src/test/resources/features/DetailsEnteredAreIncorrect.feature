@@ -14,7 +14,7 @@ Feature: Guarantee balance incorrect details entered pages are pages
     Then I should be on the What is your EORI number? page
     When I submit GB123456123456 as eori number value
     Then I should be on the Guarantee reference number page
-    When I submit 1234 as guarantee reference number value
+    When I submit 22GB1111111111112 as guarantee reference number value
     Then I should be on the Access code page
 
 

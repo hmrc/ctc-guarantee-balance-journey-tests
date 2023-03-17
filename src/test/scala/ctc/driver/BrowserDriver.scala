@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package ctc.driver
 
 import com.typesafe.scalalogging.LazyLogging
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.chrome.ChromeOptions
 import uk.gov.hmrc.webdriver.SingletonDriver
 
 trait BrowserDriver extends LazyLogging {
@@ -25,5 +26,7 @@ trait BrowserDriver extends LazyLogging {
     s"Instantiating Browser: ${sys.props.getOrElse("browser", "'browser' System property not set. This is required")}"
   )
 
-  implicit lazy val driver: WebDriver = SingletonDriver.getInstance()
+  val options                         = new ChromeOptions
+  options.addArguments("--remote-allow-origins=*")
+  implicit lazy val driver: WebDriver = SingletonDriver.getInstance(Some(options))
 }
