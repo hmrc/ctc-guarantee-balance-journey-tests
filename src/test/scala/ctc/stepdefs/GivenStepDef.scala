@@ -31,6 +31,11 @@ class GivenStepDef extends BaseStepDef {
     Page.navigateTo(getValue("local_manage_transit_movements_url"))
   }
 
+  Given("""^I authenticate with new enrolment and identifier value (.*)$""") { (identifierValue: String) =>
+    Page.authenticateNewEnrolment(identifierValue)
+    Page.navigateTo(getValue("local_manage_transit_movements_url"))
+  }
+
   Given("""^I login with no identifier value""") { () =>
     Page.authenticate()
     Page.navigateTo(getValue("local_guarantee_balance_url"))

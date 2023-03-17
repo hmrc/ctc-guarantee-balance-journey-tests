@@ -69,6 +69,13 @@ object Page extends BrowserDriver {
       fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].value']", identifierValue)
     }
 
+  def authenticateNewEnrolment(identifierValue: String): Unit =
+    authenticate {
+      fillInputByCssSelector("*[name='enrolment[0].name']", getValue("new_enrolment_key"))
+      fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].name']", getValue("new_identifier_name"))
+      fillInputByCssSelector("*[name='enrolment[0].taxIdentifier[0].value']", identifierValue)
+    }
+
   def authenticate(fillAdditionalInputs: => Unit = ()): Unit = {
     navigateTo(getValue("local_auth_login_url"))
     fillInputByCssSelector("*[name='redirectionUrl']", getValue("local_auth_redirect_url"))
