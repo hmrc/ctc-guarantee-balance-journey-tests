@@ -19,8 +19,8 @@ Feature: Guarantee balance referrals full journey testing getting balance and in
     Then I should be on the We could not check your guarantee balance page
     Then I choose to wait for 60 seconds
     When I click the Try again button
-    Then I should be on the Your details do not match our records page
-    When I click the check your answers and try again link
+    Then I should be on the The Guarantee Reference Number (GRN) and access code do match page
+    When I click the Check your details and try again link
 
     And I click the change link for guarantee reference number
     When I submit 22GB1111111111112 as guarantee reference number value
@@ -50,8 +50,8 @@ Feature: Guarantee balance referrals full journey testing getting balance and in
     Then I should be on the We could not check your guarantee balance page
     Then I choose to wait for 60 seconds
     When I click the Try again button
-    Then I should be on the Your details do not match our records page
-    When I click the check your answers and try again link
+    Then I should be on the The Guarantee Reference Number (GRN) and access code do match page
+    When I click the Check your details and try again link
 
     And I click the change link for guarantee reference number
     When I submit 22GB1111111111112 as guarantee reference number value
@@ -79,8 +79,8 @@ Feature: Guarantee balance referrals full journey testing getting balance and in
     Then I should be on the We could not check your guarantee balance page
     Then I choose to wait for 60 seconds
     When I click the Try again button
-    Then I should be on the Your details do not match our records page
-    When I click the check your answers and try again link
+    Then I should be on the The Guarantee Reference Number (GRN) and access code do match page
+    When I click the Check your details and try again link
 
     And I click the change link for guarantee reference number
     When I submit 22GB1111111111112 as guarantee reference number value
