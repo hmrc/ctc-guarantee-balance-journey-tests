@@ -7,7 +7,7 @@ Feature: Guarantee balance referrals full journey testing getting balance and in
     Then I should be on the Manage your transit movements page
     When I click the Check your guarantee balance link
     Then I should be on the What is the Guarantee Reference Number (GRN)? page
-    And I submit 01GB1234567890120A123456 as guarantee reference number value
+    And I submit 22GB1111111111113 as guarantee reference number value
 
     When I submit x906 as access code value
     Then I should be on the Check your answers page
@@ -38,7 +38,7 @@ Feature: Guarantee balance referrals full journey testing getting balance and in
     Then I should be on the Manage your transit movements page
     When I click the Check your guarantee balance link
     Then I should be on the What is the Guarantee Reference Number (GRN)? page
-    And I submit 01GB1234567890120A123456 as guarantee reference number value
+    And I submit 22GB1111111111113 as guarantee reference number value
 
     When I submit x906 as access code value
     Then I should be on the Check your answers page
@@ -67,7 +67,7 @@ Feature: Guarantee balance referrals full journey testing getting balance and in
     Given I clear my cookies
     And I login with no identifier value
     Then I should be on the What is the Guarantee Reference Number (GRN)? page
-    And I submit 01GB1234567890120A123456 as guarantee reference number value
+    And I submit 22GB1111111111113 as guarantee reference number value
 
     When I submit x906 as access code value
     Then I should be on the Check your answers page
