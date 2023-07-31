@@ -18,7 +18,9 @@ Feature: Guarantee balance referrals full journey testing getting balance and in
     When I click the Continue button
     Then I should be on the We could not check your guarantee balance page
     Then I choose to wait for 60 seconds
-    When I click the Try again button
+    When I click the check your details are correct and try again link
+    Then I should be on the Check your answers page
+    When I click the Continue button
     Then I should be on the The Guarantee Reference Number (GRN) and access code do not match page
     When I click the Check your details and try again link
 
@@ -49,7 +51,9 @@ Feature: Guarantee balance referrals full journey testing getting balance and in
     When I click the Continue button
     Then I should be on the We could not check your guarantee balance page
     Then I choose to wait for 60 seconds
-    When I click the Try again button
+    When I click the check your details are correct and try again link
+    Then I should be on the Check your answers page
+    When I click the Continue button
     Then I should be on the The Guarantee Reference Number (GRN) and access code do not match page
     When I click the Check your details and try again link
 
@@ -78,7 +82,9 @@ Feature: Guarantee balance referrals full journey testing getting balance and in
     When I click the Continue button
     Then I should be on the We could not check your guarantee balance page
     Then I choose to wait for 60 seconds
-    When I click the Try again button
+    When I click the check your details are correct and try again link
+    Then I should be on the Check your answers page
+    When I click the Continue button
     Then I should be on the The Guarantee Reference Number (GRN) and access code do not match page
     When I click the Check your details and try again link
 
