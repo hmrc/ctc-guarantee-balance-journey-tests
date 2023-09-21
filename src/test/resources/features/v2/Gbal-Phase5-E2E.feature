@@ -97,3 +97,14 @@ Feature: Guarantee balance referrals full journey testing getting balance and in
     When I click the Continue button
     Then I should be on the Available balance page
     And I should see a confirmation of my balance
+
+  Scenario: 4. Invalid guarantee type
+    Given I clear my cookies
+    And I login with no identifier value
+    Then I should be on the What is the Guarantee Reference Number (GRN)? page
+    And I submit 02GB1234567890120 as guarantee reference number value
+
+    When I submit AB12 as access code value
+    Then I should be on the Check your answers page
+    When I click the Continue button
+    Then I should be on the We cannot get the balance for this type of guarantee page
