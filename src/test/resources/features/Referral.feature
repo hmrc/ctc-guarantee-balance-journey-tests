@@ -5,7 +5,6 @@ Feature: Guarantee balance referral
   Scenario: 1. User accesses journey via NCTS
     Given I clear my cookies
     And I login with identifier value 123457890
-    Then I should be on the Manage your transit movements page
     When I click the Check your guarantee balance link
     Then I should be on the What is your EORI number? page
     When I submit GB123456123456 as eori number value

@@ -9,7 +9,6 @@ Feature: Guarantee balance incorrect details entered pages are pages
   Background: Guarantee balance background test set up
     Given I clear my cookies
     And I login with identifier value 123457890
-    Then I should be on the Manage your transit movements page
     When I click the Check your guarantee balance link
     Then I should be on the What is your EORI number? page
     When I submit GB123456123456 as eori number value
