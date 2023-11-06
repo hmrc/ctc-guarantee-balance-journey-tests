@@ -51,6 +51,8 @@ object Page extends BrowserDriver {
 
   def pageHeading: String = findElementBy(By.tagName("h1")).getText
 
+  def pageTitle: String = driver.getTitle
+
   private def fillInput(by: By, text: String): Unit = {
     val input = findElementBy(by)
     input.clear()

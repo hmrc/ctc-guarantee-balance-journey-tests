@@ -21,7 +21,7 @@ import ctc.pages.Page
 class ThenStepDef extends BaseStepDef {
 
   Then("""^I should be on the (.+) page$""") { (pageHeading: String) =>
-    Page.pageHeading shouldBe pageHeading
+    Page.pageTitle shouldBe s"$pageHeading - Check your transit guarantee balance - GOV.UK"
   }
 
   Then("""^I should see a confirmation of my balance$""") { () =>
