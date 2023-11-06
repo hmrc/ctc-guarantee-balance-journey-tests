@@ -30,7 +30,7 @@ Feature: Guarantee balance referrals full journey testing getting balance and in
     When I submit AB12 as access code value
     Then I should be on the Check your answers page
     When I click the Continue button
-    Then I should be on the Your balance page
+    Then I should be on the Available balance page
     And I should see a confirmation of my balance
 
   Scenario: 2. User accesses journey via NCTS with new enrolment
@@ -62,7 +62,7 @@ Feature: Guarantee balance referrals full journey testing getting balance and in
     When I submit AB12 as access code value
     Then I should be on the Check your answers page
     When I click the Continue button
-    Then I should be on the Your balance page
+    Then I should be on the Available balance page
     And I should see a confirmation of my balance
 
   Scenario: 3. User accesses journey via GOVUK
@@ -93,7 +93,7 @@ Feature: Guarantee balance referrals full journey testing getting balance and in
     When I submit AB12 as access code value
     Then I should be on the Check your answers page
     When I click the Continue button
-    Then I should be on the Your balance page
+    Then I should be on the Available balance page
     And I should see a confirmation of my balance
 
   Scenario: 4. Invalid guarantee type
