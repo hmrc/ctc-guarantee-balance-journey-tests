@@ -17,16 +17,13 @@
 package ctc.driver
 
 import com.typesafe.scalalogging.LazyLogging
-import org.openqa.selenium.WebDriver
-import org.openqa.selenium.chrome.ChromeOptions
-import uk.gov.hmrc.webdriver.SingletonDriver
+import org.openqa.selenium.remote.RemoteWebDriver
+import uk.gov.hmrc.selenium.webdriver.Driver
 
 trait BrowserDriver extends LazyLogging {
   logger.info(
     s"Instantiating Browser: ${sys.props.getOrElse("browser", "'browser' System property not set. This is required")}"
   )
 
-  val options                         = new ChromeOptions
-  options.addArguments("--remote-allow-origins=*")
-  implicit lazy val driver: WebDriver = SingletonDriver.getInstance(Some(options))
+  implicit lazy val driver: RemoteWebDriver = Driver.instance
 }
