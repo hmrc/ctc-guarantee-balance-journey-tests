@@ -4,10 +4,14 @@
 This repo contains all the acceptance tests which are defined in conjunction with the business using Given, When, Then statements written in Gherkin syntax. 
 
 ## Prerequisites
-* [Docker](https://docs.tax.service.gov.uk/mdtp-handbook/documentation/developer-set-up/install-docker.html#check-you-ve-completed-this-step-successfully)
-* [Docker compose](https://hub.docker.com/r/docker/compose?uuid=c91d211a-bf86-464c-9915-6cbd98c757d4%0A)
+* Docker
+  * [Ubuntu](https://docs.tax.service.gov.uk/mdtp-handbook/documentation/developer-set-up/install-docker.html#install-docker-ubuntu)
+  * [macOS](https://docs.tax.service.gov.uk/mdtp-handbook/documentation/developer-set-up/install-docker.html#install-docker-macos)
+* Docker compose
+  * [Ubuntu](https://docs.tax.service.gov.uk/mdtp-handbook/documentation/developer-set-up/install-docker.html#install-the-docker-packages)
+  * [macOS](https://formulae.brew.sh/formula/docker-compose) (Ensure the symlink step is followed so Docker can find the pkugin)
 * [Docker selenium grid](https://github.com/hmrc/docker-selenium-grid)
-* [Mongo](https://hub.docker.com/_/mongo?uuid=c91d211a-bf86-464c-9915-6cbd98c757d4%0A)
+* [MongoDB](https://docs.tax.service.gov.uk/mdtp-handbook/documentation/developer-set-up/set-up-mongodb.html)
     
 ## How to run the journey tests
 * Ensure that you have cloned docker-selenium-grid and have executed `./start.sh` to run the relevant containers
