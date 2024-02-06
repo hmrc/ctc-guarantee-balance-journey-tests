@@ -1,8 +1,7 @@
 
 # ctc-guarantee-balance-journey-tests
 
-This repo contains all of the acceptance tests which are defined in conjunction with the business using Given, When, 
-Then statements written in Gherkin syntax. 
+This repo contains all the acceptance tests which are defined in conjunction with the business using Given, When, Then statements written in Gherkin syntax. 
 
 ## Prerequisites
 * [Docker](https://docs.tax.service.gov.uk/mdtp-handbook/documentation/developer-set-up/install-docker.html#check-you-ve-completed-this-step-successfully)
@@ -11,7 +10,7 @@ Then statements written in Gherkin syntax.
 * [Mongo](https://hub.docker.com/_/mongo?uuid=c91d211a-bf86-464c-9915-6cbd98c757d4%0A)
     
 ## How to run the journey tests
-* Ensure that you have cloned docker-selenium-grid and have executed `.start.sh` to run the relevant containers
+* Ensure that you have cloned docker-selenium-grid and have executed `./start.sh` to run the relevant containers
 * Start the relevant services in service manager with:
   * `sm2 --start CTC_TRADERS_GUARANTEE_BALANCE_ACCEPTANCE` for phase 4
   * `sm2 --start CTC_TRADERS_GUARANTEE_BALANCE_ACCEPTANCE_V2` for phase 5
