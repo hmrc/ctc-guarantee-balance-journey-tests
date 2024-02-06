@@ -16,16 +16,15 @@
 
 package ctc.stepdefs
 
-import ctc.driver.BrowserDriver
-import io.cucumber.scala.{EN, ScalaDsl, Scenario}
-import org.openqa.selenium.{OutputType, TakesScreenshot}
+import io.cucumber.scala.{EN, ScalaDsl}
+import uk.gov.hmrc.selenium.webdriver.Browser
 
-class Hooks extends ScalaDsl with EN with BrowserDriver {
-  After { scenario: Scenario =>
-    if (scenario.isFailed) {
-      val screenshotName = scenario.getName.replaceAll(" ", "_")
-      val screenshot     = driver.asInstanceOf[TakesScreenshot].getScreenshotAs(OutputType.BYTES)
-      scenario.attach(screenshot, "image/png", screenshotName)
-    }
+object Hooks extends ScalaDsl with EN with Browser {
+  BeforeAll {
+    startBrowser()
+  }
+
+  AfterAll {
+    quitBrowser()
   }
 }
